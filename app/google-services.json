@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "623044568254",
+    "firebase_url": "https://ecivil-app.firebaseio.com",
+    "project_id": "ecivil-app",
+    "storage_bucket": "ecivil-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623044568254:android:952f8fd77de33cc2",
+        "android_client_info": {
+          "package_name": "br.com.viniciusalmada.civilapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623044568254-otb3slrn2efu5rar84t690fbp6upc66l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.viniciusalmada.civilapp",
+            "certificate_hash": "8985c960f52957d5571cebb09bcdfe3a0244287b"
+          }
+        },
+        {
+          "client_id": "623044568254-gd15pm9h2grm6lectgbbh5jfsd92nrgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC__G-zydEztWbkpfB22196z6X1F644JLc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623044568254-gd15pm9h2grm6lectgbbh5jfsd92nrgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

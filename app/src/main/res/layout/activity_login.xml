@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_backgroound"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_ec_logo"
+            android:layout_width="@dimen/common_image_size_150"
+            android:layout_height="@dimen/common_image_size_150"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/common_36"
+            app:srcCompat="@drawable/ic_ec" />
+
+        <ImageView
+            android:id="@+id/iv_ifma_logo"
+            android:layout_width="@dimen/common_image_size"
+            android:layout_height="@dimen/common_image_size"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/iv_ec_logo"
+            android:layout_margin="@dimen/common_16"
+            app:srcCompat="@drawable/ic_ifma" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_ifma_logo"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/iv_ec_logo"
+            android:layout_marginEnd="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_24"
+            android:layout_toEndOf="@+id/iv_ifma_logo"
+            android:layout_toRightOf="@+id/iv_ifma_logo"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center"
+            android:text="ECivil App"
+            android:textColor="#FFF"
+            android:textSize="42sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_bts"
+            android:layout_marginEnd="@dimen/common_16"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginStart="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_24"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Login via:"
+            android:textColor="#FFF"
+            android:textSize="24sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:id="@+id/ll_bts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <br.com.viniciusalmada.civilapp.extras.FacebookButton
+                android:id="@+id/bt_login_facebook"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="@dimen/common_16"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/common_16"
+                android:paddingEnd="@dimen/common_16"
+                android:paddingStart="@dimen/common_16"
+                android:paddingTop="@dimen/common_16"
+                android:text="Facebook"
+                android:textAllCaps="false"
+                android:theme="@style/ButtonCustomStyleFacebook" />
+
+            <br.com.viniciusalmada.civilapp.extras.GoogleButton
+                android:id="@+id/bt_login_google"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="@dimen/common_16"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/common_16"
+                android:paddingEnd="@dimen/common_16"
+                android:paddingStart="@dimen/common_16"
+                android:paddingTop="@dimen/common_16"
+                android:text="Google"
+                android:textAllCaps="false"
+                android:theme="@style/ButtonCustomStyleGoogle" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+

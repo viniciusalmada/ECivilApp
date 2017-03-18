@@ -1,0 +1,4 @@
+Informaçãoes do usuário após seu primeiro login
+Código
+Período corrente
+Cadeiras que cursa

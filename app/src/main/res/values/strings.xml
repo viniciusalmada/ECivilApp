@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ECivil App</string>
+    <string name="no_connection">Sem conexão</string>
+    <string name="to_conect">Conectar</string>
+    <string name="active_data_wifi">Ativar WiFi/Dados</string>
+    <string name="mobile_data">Dados Móveis</string>
+    <string name="wifi">WiFi</string>
+
+    <string name="facebook_app_id">495027350886378</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_signout">Sign Out</string>
+</resources>
