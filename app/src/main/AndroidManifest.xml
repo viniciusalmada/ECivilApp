@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.viniciusalmada.civilapp">
 
+    <!-- if you want to load images from the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,13 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".MainActivity" />-->
+        <!-- <activity android:name=".MainActivity" /> -->
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:name=".HomeActivity2"
+            android:label="ECivil App"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

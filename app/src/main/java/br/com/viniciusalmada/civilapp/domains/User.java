@@ -27,6 +27,8 @@ public class User implements Parcelable {
     private String email;
     private String profilePic;
     private String uid;
+    private String code;
+    private int[] subjects;
 
     public User() {
     }

@@ -101,7 +101,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                     u.setUid(user.getUid());
                     User.writeOnFirebase(u);
 
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity2.class);
                     intent.putExtra(KEY_USER_PARCELABLE, u);
                     hideDialog();
                     startActivity(intent);

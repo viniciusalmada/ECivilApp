@@ -52,53 +52,34 @@
             android:textSize="42sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/ll_bts"
-            android:layout_marginEnd="@dimen/common_16"
-            android:layout_marginLeft="@dimen/common_16"
-            android:layout_marginRight="@dimen/common_16"
-            android:layout_marginStart="@dimen/common_16"
-            android:layout_marginTop="@dimen/common_24"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Login via:"
-            android:textColor="#FFF"
-            android:textSize="24sp"
-            android:textStyle="italic" />
-
         <LinearLayout
             android:id="@+id/ll_bts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <br.com.viniciusalmada.civilapp.extras.FacebookButton
                 android:id="@+id/bt_login_facebook"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginBottom="@dimen/common_16"
                 android:layout_marginLeft="@dimen/common_16"
                 android:layout_marginRight="@dimen/common_16"
-                android:layout_weight="1"
                 android:paddingBottom="@dimen/common_16"
                 android:paddingEnd="@dimen/common_16"
                 android:paddingStart="@dimen/common_16"
                 android:paddingTop="@dimen/common_16"
-                android:text="Facebook"
                 android:textAllCaps="false"
                 android:theme="@style/ButtonCustomStyleFacebook" />
 
             <br.com.viniciusalmada.civilapp.extras.GoogleButton
                 android:id="@+id/bt_login_google"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginBottom="@dimen/common_16"
                 android:layout_marginLeft="@dimen/common_16"
                 android:layout_marginRight="@dimen/common_16"
-                android:layout_weight="1"
                 android:paddingBottom="@dimen/common_16"
                 android:paddingEnd="@dimen/common_16"
                 android:paddingStart="@dimen/common_16"
