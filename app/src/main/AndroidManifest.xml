@@ -28,9 +28,10 @@
         </activity>
         <!-- <activity android:name=".MainActivity" /> -->
         <activity
-            android:name=".HomeActivity2"
+            android:name=".HomeActivity"
             android:label="ECivil App"
             android:theme="@style/AppTheme" />
+        <activity android:name=".DataInitialInputActivity" />
     </application>
 
 </manifest>

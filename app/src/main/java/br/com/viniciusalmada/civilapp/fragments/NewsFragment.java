@@ -1,5 +1,6 @@
 package br.com.viniciusalmada.civilapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +20,7 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.nodes.Document;
@@ -23,6 +28,7 @@ import org.jsoup.nodes.Document;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import br.com.viniciusalmada.civilapp.LoginActivity;
 import br.com.viniciusalmada.civilapp.R;
 import br.com.viniciusalmada.civilapp.adapters.NewsImagesSmallerAdapter;
 import br.com.viniciusalmada.civilapp.adapters.NewsNonImageAdapter;
@@ -38,10 +44,17 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
     private static final String URL_IFMA = "http://portal.ifma.edu.br/";
     private Document doc;
     private SliderLayout slNewsDynamics;
+    private View rootView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initJsoup();
+
+        setHasOptionsMenu(true);
+    }
+
+    private void initJsoup() {
         HandlerJsoup handlerJsoup = new HandlerJsoup();
         handlerJsoup.execute(URL_IFMA);
         try {
@@ -54,25 +67,48 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_news, container, false);
-        initViews(rootView);
+        rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
         return rootView;
     }
 
     @Override
-    public void onStart() {
+    public void onResume() {
+        super.onResume();
+        initViews();
         slNewsDynamics.startAutoCycle();
-        super.onStart();
     }
 
     @Override
     public void onStop() {
-        slNewsDynamics.stopAutoCycle();
+        if (slNewsDynamics != null)
+            slNewsDynamics.stopAutoCycle();
         super.onStop();
     }
 
-    private void initViews(View rootView) {
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_news_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                initJsoup();
+                initViews();
+                return true;
+            case R.id.action_signout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void initViews() {
         slNewsDynamics = (SliderLayout) rootView.findViewById(R.id.slider_news_dynamics);
         ImageView ivNewsFeatured = (ImageView) rootView.findViewById(R.id.iv_news_featured);
         TextView tvNewsFeatured = (TextView) rootView.findViewById(R.id.tv_title_news_featured);
@@ -142,8 +178,6 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
     public void onSliderClick(BaseSliderView slider) {
         String url = slider.getBundle().getString("link");
         AlertLinkExternal.openAlertDialog(url, getActivity());
-//        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//        startActivity(i);
     }
 
     @Override

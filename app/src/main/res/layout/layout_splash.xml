@@ -57,8 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
             <br.com.viniciusalmada.civilapp.extras.FacebookButton
                 android:id="@+id/bt_login_facebook"
@@ -89,16 +88,6 @@
                 android:textAllCaps="false"
                 android:theme="@style/ButtonCustomStyleGoogle" />
         </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/pb_login"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="48dp"
-            android:visibility="gone" />
 
 
     </RelativeLayout>

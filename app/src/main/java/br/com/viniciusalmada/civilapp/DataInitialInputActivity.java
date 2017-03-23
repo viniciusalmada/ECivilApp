@@ -1,0 +1,68 @@
+package br.com.viniciusalmada.civilapp;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import br.com.viniciusalmada.civilapp.domains.User;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * Created by vinicius-almada on 21/03/17.
+ */
+
+public class DataInitialInputActivity extends CommonActivity {
+    public static final String TAG = "DataInitial ";
+    private User user;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_data_initial);
+        Log.d(TAG, "onCreate: ");
+        initViews();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_input_data, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_next) {
+            EditText etCode = (EditText) findViewById(R.id.et_code);
+            user.setCode(etCode.getText().toString());
+            User.writeOnFirebase(user);
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra(LoginActivity.KEY_USER_PARCELABLE, user);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void initViews() {
+        Log.d(TAG, "initViews: ");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_input);
+        setSupportActionBar(toolbar);
+        user = getIntent().getParcelableExtra(LoginActivity.KEY_USER_PARCELABLE);
+        CircleImageView civProfile = (CircleImageView) findViewById(R.id.civ_pic_profile);
+        TextView tvName = (TextView) findViewById(R.id.tv_name);
+        TextView tvEmail = (TextView) findViewById(R.id.tv_email);
+
+        Picasso.with(this).load(user.getProfilePic()).into(civProfile);
+        tvName.setText(user.getName());
+        tvEmail.setText(user.getEmail());
+    }
+}

@@ -27,6 +27,8 @@ dependencies {
     // android libs
     // google/firebase libs
     // aux libs
+
+
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:support-v13:25.3.0'
     compile 'com.android.support:animated-vector-drawable:25.3.0'
@@ -48,8 +50,11 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'org.jsoup:jsoup:1.10.2'
+    compile 'com.vicmikhailau:MaskedEditText:2.0.1'
     testCompile 'junit:junit:4.12'
 }
+
+
 
 
 

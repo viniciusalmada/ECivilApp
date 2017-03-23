@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drawer_news"
+            android:icon="@drawable/ic_news"
+            android:title="News" />
+        <item
+            android:id="@+id/drawer_timetable"
+            android:icon="@drawable/ic_clock"
+            android:title="Timetable" />
+        <item
+            android:id="@+id/drawer_syllabus"
+            android:icon="@drawable/ic_description"
+            android:title="Syllabus" />
+        <item
+            android:id="@+id/drawer_monograph"
+            android:icon="@drawable/ic_clock"
+            android:title="Monographs" />
+    </group>
+</menu>

@@ -16,7 +16,7 @@
             android:id="@+id/iv_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/trash" />
+            app:srcCompat="@color/colorAccent" />
 
         <TextView
             android:id="@+id/tv_title"

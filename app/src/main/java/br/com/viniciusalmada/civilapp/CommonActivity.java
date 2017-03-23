@@ -33,6 +33,13 @@ public abstract class CommonActivity extends AppCompatActivity {
         progressDialog.show();
     }
 
+    protected void showDialog(String text, boolean cancelable) {
+        progressDialog.setCancelable(true);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage(text);
+        progressDialog.show();
+    }
+
     protected void hideDialog() {
         progressDialog.hide();
     }

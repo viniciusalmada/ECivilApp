@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -30,6 +33,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Arrays;
 
@@ -47,12 +55,13 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CallbackManager callbackManager;
+    private Button btFacebook;
+    private Button btGoogle;
+    private ProgressBar pbLogin;
 
     @Override
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
-        setContentView(R.layout.activity_login);
-        initViews();
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -82,6 +91,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "onError: " + error.getMessage());
+                showLoginButtons();
             }
         });
 
@@ -90,28 +100,56 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                showProgress();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+//                    showDialog("Initializing...", true);
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    User u = new User();
-                    u.setName(user.getDisplayName());
-                    u.setEmail(user.getEmail());
-                    u.setProfilePic(String.valueOf(user.getPhotoUrl()));
-                    u.setUid(user.getUid());
-                    User.writeOnFirebase(u);
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(User.DR_USERS);
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String code = dataSnapshot.child(user.getUid()).child("code").getValue(String.class);
+                            Log.d(TAG, "onDataChange: " + code);
+                            if (code != null) {
+                                Log.d(TAG, "onDataChange: code not null");
+                                User u = dataSnapshot.child(user.getUid()).getValue(User.class);
+                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                intent.putExtra(KEY_USER_PARCELABLE, u);
+                                startActivity(intent);
+                                showToast("Login successfully", true);
+                                finish();
+                            } else {
+                                Log.d(TAG, "onDataChange: code null");
+                                User u = new User();
+                                u.setName(user.getDisplayName());
+                                u.setEmail(user.getEmail());
+                                u.setProfilePic(String.valueOf(user.getPhotoUrl()));
+                                u.setUid(user.getUid());
+                                User.writeOnFirebase(u);
 
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity2.class);
-                    intent.putExtra(KEY_USER_PARCELABLE, u);
-                    hideDialog();
-                    startActivity(intent);
-                    finish();
+                                Intent intent = new Intent(LoginActivity.this, DataInitialInputActivity.class);
+                                intent.putExtra(KEY_USER_PARCELABLE, u);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
+                    showLoginButtons();
                 }
             }
         };
+        setContentView(R.layout.activity_login);
+        initViews();
     }
 
     @Override
@@ -123,15 +161,10 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                hideDialog();
-                // Google Sign In failed, update UI appropriately
-                // [START_EXCLUDE]
-//                updateUI(null);
-                // [END_EXCLUDE]
+                showLoginButtons();
             }
         }
     }
@@ -148,6 +181,12 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hideDialog();
     }
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
@@ -212,15 +251,29 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    private void showLoginButtons() {
+        pbLogin.setVisibility(View.GONE);
+        ((LinearLayout) btFacebook.getParent()).setVisibility(View.VISIBLE);
+    }
+
+    private void showProgress() {
+        pbLogin.setVisibility(View.VISIBLE);
+        ((LinearLayout) btFacebook.getParent()).setVisibility(View.GONE);
+    }
+
     @Override
     protected void initViews() {
-        (findViewById(R.id.bt_login_facebook)).setOnClickListener(this);
-        (findViewById(R.id.bt_login_google)).setOnClickListener(this);
+        btFacebook = (Button) findViewById(R.id.bt_login_facebook);
+        btGoogle = (Button) findViewById(R.id.bt_login_google);
+        pbLogin = (ProgressBar) findViewById(R.id.pb_login);
+
+        btFacebook.setOnClickListener(this);
+        btGoogle.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        showDialog("Logging...");
+        showProgress();
         switch (v.getId()) {
             case R.id.bt_login_facebook:
                 Log.d(TAG, "onClick: " + "Facebook button clicked");

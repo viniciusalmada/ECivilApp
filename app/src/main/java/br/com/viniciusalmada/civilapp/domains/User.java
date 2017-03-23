@@ -2,7 +2,11 @@ package br.com.viniciusalmada.civilapp.domains;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,7 +32,6 @@ public class User implements Parcelable {
     private String profilePic;
     private String uid;
     private String code;
-    private int[] subjects;
 
     public User() {
     }
@@ -37,12 +40,18 @@ public class User implements Parcelable {
         name = in.readString();
         email = in.readString();
         profilePic = in.readString();
+        code = in.readString();
         uid = in.readString();
     }
 
     public static void writeOnFirebase(User u) {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child(DR_USERS);
-        userRef.child(u.getUid()).setValue(u);
+        userRef.child(u.getUid()).setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d("User ", "onComplete: " + task.isSuccessful());
+            }
+        });
     }
 
     public String getName() {
@@ -77,6 +86,14 @@ public class User implements Parcelable {
         this.uid = uid;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -87,6 +104,7 @@ public class User implements Parcelable {
         dest.writeString(name);
         dest.writeString(email);
         dest.writeString(profilePic);
+        dest.writeString(code);
         dest.writeString(uid);
     }
 }
