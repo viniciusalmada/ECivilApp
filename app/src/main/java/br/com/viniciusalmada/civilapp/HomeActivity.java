@@ -26,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import br.com.viniciusalmada.civilapp.domains.User;
 import br.com.viniciusalmada.civilapp.fragments.NewsFragment;
+import br.com.viniciusalmada.civilapp.fragments.TimetableFragment;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static br.com.viniciusalmada.civilapp.LoginActivity.KEY_USER_PARCELABLE;
@@ -43,12 +44,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,6 +71,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     @Override
@@ -191,6 +193,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // Return a PlaceholderFragment (defined as a static inner class below).
             if (position == 0) {
                 return new NewsFragment();
+            } else if (position == 1) {
+                return new TimetableFragment();
             } else {
                 return new Fragment();
             }

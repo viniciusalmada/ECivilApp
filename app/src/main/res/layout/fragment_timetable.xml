@@ -1,13 +1,230 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
     tools:context="br.com.viniciusalmada.civilapp.fragments.TimetableFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/rg_per"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="3dp"
+                segmentedgroup:sc_corner_radius="0dp"
+                segmentedgroup:sc_tint_color="@color/colorPrimary">
+
+                <RadioButton
+                    android:id="@+id/rb_p1"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/_1"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_p2"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/_2"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_p3"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/_3"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_p4"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/_4"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_p5"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/_5"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_p6"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/_6"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/rg_per"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/rg_days" />
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/rg_days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="#37474F"
+                android:checkedButton="@+id/rb_d5"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="0dp"
+                segmentedgroup:sc_checked_text_color="#37474F"
+                segmentedgroup:sc_corner_radius="0dp"
+                segmentedgroup:sc_tint_color="#fff">
+
+                <RadioButton
+                    android:id="@+id/rb_d1"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="@dimen/common_8"
+                    android:paddingTop="@dimen/common_8"
+                    android:text="@string/seg"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_d2"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="@dimen/common_8"
+                    android:paddingTop="@dimen/common_8"
+                    android:text="@string/ter"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_d3"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="@dimen/common_8"
+                    android:paddingTop="@dimen/common_8"
+                    android:text="@string/qua"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_d4"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="@dimen/common_8"
+                    android:paddingTop="@dimen/common_8"
+                    android:text="@string/qui"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_d5"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="@dimen/common_8"
+                    android:paddingTop="@dimen/common_8"
+                    android:text="@string/sex"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <RadioButton
+                    android:id="@+id/rb_d6"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingBottom="@dimen/common_8"
+                    android:paddingTop="@dimen/common_8"
+                    android:text="@string/sab"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

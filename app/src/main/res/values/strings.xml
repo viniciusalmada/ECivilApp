@@ -20,4 +20,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="_1">1º</string>
+    <string name="_2">3º</string>
+    <string name="_3">5º</string>
+    <string name="_4">7º</string>
+    <string name="_5">9º</string>
+    <string name="_6">HP</string>
+    <string name="seg">S</string>
+    <string name="ter">T</string>
+    <string name="qua">Q</string>
+    <string name="qui">Q</string>
+    <string name="sex">S</string>
+    <string name="sab">S</string>
 </resources>

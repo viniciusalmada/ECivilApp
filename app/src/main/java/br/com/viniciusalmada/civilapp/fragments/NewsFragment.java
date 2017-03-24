@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +43,7 @@ import br.com.viniciusalmada.civilapp.utils.AlertLinkExternal;
  */
 
 public class NewsFragment extends Fragment implements BaseSliderView.OnSliderClickListener, View.OnClickListener {
+    public static final String TAG = "NewsFragment";
     private static final String URL_IFMA = "http://portal.ifma.edu.br/";
     private Document doc;
     private SliderLayout slNewsDynamics;
@@ -77,6 +80,14 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
         super.onResume();
         initViews();
         slNewsDynamics.startAutoCycle();
+
+        ((NestedScrollView) rootView.findViewById(R.id.root_nested)).smoothScrollTo(0, 0);
+        ((NestedScrollView) rootView.findViewById(R.id.root_nested)).setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d(TAG, "onScrollChange: " + scrollX + "\t" + scrollY);
+            }
+        });
     }
 
     @Override

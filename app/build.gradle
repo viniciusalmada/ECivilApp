@@ -24,10 +24,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    // android libs
-    // google/firebase libs
-    // aux libs
-
 
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:support-v13:25.3.0'
@@ -51,6 +47,8 @@ dependencies {
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.vicmikhailau:MaskedEditText:2.0.1'
+    compile 'info.hoang8f:android-segmented:1.0.6'
+    compile 'com.github.ceryle:RadioRealButton:v2.0.2'
     testCompile 'junit:junit:4.12'
 }
 
