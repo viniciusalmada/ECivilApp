@@ -1,0 +1,133 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@drawable/bg_simec"
+                                            tools:context="br.com.viniciusalmada.civilapp.fragments.SimecFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView2"
+                android:layout_marginBottom="@dimen/common_8"
+                android:layout_marginTop="@dimen/common_8"
+                android:layout_toLeftOf="@+id/imageButton"
+                android:layout_toStartOf="@+id/imageButton"
+                android:padding="3dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/simec_logo_title"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:background="#aa000000"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:paddingBottom="@dimen/common_8"
+                android:paddingTop="@dimen/common_8"
+                android:text="08 a 12 de Maio - IFMA Monte Castelo"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/imageView"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignStart="@+id/imageView"
+                android:layout_below="@+id/imageView"
+                android:background="#aa000000"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:paddingLeft="@dimen/common_16"
+                android:paddingRight="@dimen/common_16"
+                android:text='"Planejamento e Infraestrutura dos modais de Transportes."'
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20sp"/>
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/imageView"
+                android:background="@android:color/transparent"
+                android:paddingRight="@dimen/common_16"
+                app:srcCompat="@android:drawable/ic_menu_info_details"/>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_theme"
+                android:layout_marginBottom="@dimen/common_8"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_marginTop="@dimen/common_8"
+                android:fontFamily="cursive"
+                android:text="Inscreva-se já!"
+                android:textAllCaps="false"
+                android:textColor="#eee"
+                android:textSize="30sp"
+                android:textStyle="bold|italic"
+                android:theme="@style/ButtonCustomSimec"/>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/button2"
+                android:background="#aa000000"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
+                android:paddingBottom="@dimen/common_8"
+                android:paddingTop="@dimen/common_8"
+                android:text="Palestras e Minicursos"
+                android:textAllCaps="true"
+                android:textColor="#fff"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_simec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView5">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

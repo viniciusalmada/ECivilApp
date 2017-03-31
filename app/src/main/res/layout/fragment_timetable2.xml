@@ -23,109 +23,90 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:elevation="@dimen/common_8"
-                app:rrbg_animateDrawables_enter="overshoot"
-                app:rrbg_bottomLineColor="@color/colorPrimaryDark"
-                app:rrbg_checkedButton="@+id/rb_d1"
-                app:rrbg_dividerColor="#fff"
-                app:rrbg_radius="0dp"
+                app:rrbg_animateTexts_enter="bounce|anticipate"
+                app:rrbg_backgroundColor="@color/colorPrimaryDark"
+                app:rrbg_bottomLineColor="#fff"
+                app:rrbg_dividerColor="#aaa"
                 app:rrbg_selectorColor="@color/colorAccent"
-                app:rrbg_selectorSize="3dp">
+                app:rrbg_selectorSize="4dp">
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_d1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/seg"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="14sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_d2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/ter"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="14sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_d3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/qua"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="14sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_d4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/qui"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="14sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_d5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/sex"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="14sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_d6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/sab"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="14sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
 
             </co.ceryle.radiorealbutton.library.RadioRealButtonGroup>
@@ -134,128 +115,376 @@
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/rg_per"
+                android:layout_above="@+id/tv_period"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/rg_days"
-                android:elevation="8dp" />
+                android:elevation="8dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_period"
+                android:layout_below="@+id/rg_days"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:lineSpacingExtra="12sp"
+                android:text="@string/hor_rios_indispon_veis"
+                android:textColor="@color/colorAccent"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:typeface="normal"/>
+
+            <TextView
+                android:id="@+id/tv_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rg_per"
+                android:background="@color/colorPrimary"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingLeft="@dimen/common_8"
+                android:text="@string/period"
+                android:textColor="#fff"
+                android:textSize="14sp"/>
 
             <co.ceryle.radiorealbutton.library.RadioRealButtonGroup
                 android:id="@+id/rg_per"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                app:rrbg_animateDrawables_enter="overshoot"
-                app:rrbg_bottomLineColor="@color/colorPrimaryDark"
-                app:rrbg_checkedButton="@+id/rb_p1"
-                app:rrbg_dividerColor="#000"
-                app:rrbg_dividerSize="0dp"
-                app:rrbg_radius="0dp"
+                app:rrbg_animateTexts_enter="bounce|anticipate"
+                app:rrbg_backgroundColor="@color/colorPrimaryDark"
+                app:rrbg_bottomLineColor="#fff"
+                app:rrbg_dividerColor="#aaa"
                 app:rrbg_selectorColor="@color/colorAccent"
-                app:rrbg_selectorSize="3dp"
-                app:rrbg_selectorTop="true">
+                app:rrbg_selectorSize="4dp">
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_p1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/_1"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="18sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_p2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/_2"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="18sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_p3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/_3"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="18sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_p4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/_4"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
+                    app:rrb_textSize="18sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
 
                 <co.ceryle.radiorealbutton.library.RadioRealButton
                     android:id="@+id/rb_p5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
                     app:rrb_ripple="true"
                     app:rrb_rippleColor="@color/colorAccent"
                     app:rrb_text="@string/_5"
-                    app:rrb_textColor="#fff"
+                    app:rrb_textColor="@android:color/white"
                     app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
-
-                <co.ceryle.radiorealbutton.library.RadioRealButton
-                    android:id="@+id/rb_p6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:rrb_backgroundColor="@color/colorPrimaryDark"
-                    app:rrb_drawableHeight="36dp"
-                    app:rrb_drawablePadding="@dimen/common_8"
-                    app:rrb_drawableWidth="@dimen/common_36"
-                    app:rrb_ripple="true"
-                    app:rrb_rippleColor="@color/colorAccent"
-                    app:rrb_text="@string/_6"
-                    app:rrb_textColor="#fff"
-                    app:rrb_textGravity="center"
-                    app:rrb_textSize="28sp"
-                    app:rrb_textStyle="bold" />
-
-
+                    app:rrb_textSize="18sp"
+                    app:rrb_textStyle="normal|bold"
+                    app:rrb_textTypeface="monospace"/>
             </co.ceryle.radiorealbutton.library.RadioRealButtonGroup>
-
 
         </RelativeLayout>
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
+    <!--
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        tools:context="br.com.viniciusalmada.civilapp.fragments.TimetableFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <co.ceryle.radiorealbutton.library.RadioRealButtonGroup
+                    android:id="@+id/rg_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:elevation="@dimen/common_8"
+                    app:rrbg_animate="true"
+                    app:rrbg_animateDrawables_enter="cycle"
+                    app:rrbg_animateSelector="accelerate"
+                    app:rrbg_bottomLineColor="@color/colorPrimaryDark"
+                    app:rrbg_dividerColor="#fff"
+                    app:rrbg_radius="0dp"
+                    app:rrbg_selectorColor="@color/colorAccent"
+                    app:rrbg_selectorSize="3dp">
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_d1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/seg"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_d2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/ter"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_d3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/qua"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_d4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/qui"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_d5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/sex"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_d6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/sab"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+
+                </co.ceryle.radiorealbutton.library.RadioRealButtonGroup>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/rg_per"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/rg_days"
+                    android:elevation="8dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/rg_per"
+                    android:layout_below="@+id/rg_days"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/common_16"
+                    android:layout_marginRight="@dimen/common_16"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    android:lineSpacingExtra="12sp"
+                    android:text="Horários indisponíveis"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+                <co.ceryle.radiorealbutton.library.RadioRealButtonGroup
+                    android:id="@+id/rg_per"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    app:rrbg_bottomLineColor="@color/colorPrimaryDark"
+                    app:rrbg_dividerColor="#000"
+                    app:rrbg_dividerSize="0dp"
+                    app:rrbg_radius="0dp"
+                    app:rrbg_selectorColor="@color/colorAccent"
+                    app:rrbg_selectorSize="3dp"
+                    app:rrbg_selectorTop="true">
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_p1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/_1"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_p2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/_2"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_p3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/_3"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_p4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/_4"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_p5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/_5"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+
+                    <co.ceryle.radiorealbutton.library.RadioRealButton
+                        android:id="@+id/rb_hp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:rrb_backgroundColor="@color/colorPrimaryDark"
+                        app:rrb_ripple="true"
+                        app:rrb_rippleColor="@color/colorAccent"
+                        app:rrb_text="@string/_6"
+                        app:rrb_textColor="#fff"
+                        app:rrb_textGravity="center"
+                        app:rrb_textSize="18sp"
+                        app:rrb_textStyle="bold"
+                        app:rrb_textTypeface="monospace" />
+                </co.ceryle.radiorealbutton.library.RadioRealButtonGroup>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    -->

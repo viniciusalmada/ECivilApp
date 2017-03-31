@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_8"
+            android:fontFamily="sans-serif-condensed"
             android:text="Institutos Federais fortalecem parceria com norte-americanos"
             android:textColor="#333"
             android:textSize="18sp"
@@ -24,6 +25,7 @@
             android:id="@+id/tv_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
             android:text="Fomentar ações que fortaleçam o ensino da língua inglesa e o domínio do idioma é o intuito de visita às"
             android:textColor="#555"
             android:textSize="16sp" />

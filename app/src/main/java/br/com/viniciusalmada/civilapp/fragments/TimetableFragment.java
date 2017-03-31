@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,11 +20,15 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
+import br.com.viniciusalmada.civilapp.HomeActivity;
 import br.com.viniciusalmada.civilapp.R;
 import br.com.viniciusalmada.civilapp.adapters.TimeTableAdapter;
 import br.com.viniciusalmada.civilapp.domains.TimeTable;
+import br.com.viniciusalmada.civilapp.domains.User;
 import co.ceryle.radiorealbutton.library.RadioRealButton;
 import co.ceryle.radiorealbutton.library.RadioRealButtonGroup;
 
@@ -30,10 +36,11 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
 
     public static final String TAG = "TimetableFrag";
 
-
     private View rootView;
-    private int mDay = 3;
-    private int mPeriod = 7;
+    private int mDay = 0;
+    private int mPeriod = 1;
+    private RadioRealButtonGroup mButtonGroupDays;
+    private RadioRealButtonGroup mButtonGroupPeriods;
 
     public TimetableFragment() {
 
@@ -41,49 +48,67 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: ");
         rootView = inflater.inflate(R.layout.fragment_timetable2, container, false);
-        initViews();
+        initDay();
+        initPeriod();
 
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+        initViews();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        User uLogged = ((HomeActivity) getActivity()).getUserLogged();
+        DatabaseReference periodRef = FirebaseDatabase.getInstance().getReference().child(User.DR_USERS);
+        Map<String, Object> map = uLogged.toMap();
+        map.put("period", mPeriod);
+        periodRef.child(uLogged.getUid()).updateChildren(map);
+        uLogged.setPeriod(mPeriod);
+        ((HomeActivity) getActivity()).setUserLogged(uLogged);
+    }
+
+    private void initDay() {
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+        mDay = day == 1 ? 0 : day - 2;
+    }
+
+    private void initPeriod() {
+        User uLogged = ((HomeActivity) getActivity()).getUserLogged();
+        if (uLogged.getPeriod() != 0) {
+            mPeriod = uLogged.getPeriod();
+        } else {
+            mPeriod = 1;
+        }
+    }
+
     private void initViews() {
-        RadioRealButton[] rbPeriods = new RadioRealButton[6];
-        rbPeriods[0] = (RadioRealButton) rootView.findViewById(R.id.rb_p1);
-        rbPeriods[1] = (RadioRealButton) rootView.findViewById(R.id.rb_p2);
-        rbPeriods[2] = (RadioRealButton) rootView.findViewById(R.id.rb_p3);
-        rbPeriods[3] = (RadioRealButton) rootView.findViewById(R.id.rb_p4);
-        rbPeriods[4] = (RadioRealButton) rootView.findViewById(R.id.rb_p5);
-        rbPeriods[5] = (RadioRealButton) rootView.findViewById(R.id.rb_p6);
 
-        RadioRealButton[] rbDays = new RadioRealButton[6];
-        rbDays[0] = (RadioRealButton) rootView.findViewById(R.id.rb_d1);
-        rbDays[1] = (RadioRealButton) rootView.findViewById(R.id.rb_d2);
-        rbDays[2] = (RadioRealButton) rootView.findViewById(R.id.rb_d3);
-        rbDays[3] = (RadioRealButton) rootView.findViewById(R.id.rb_d4);
-        rbDays[4] = (RadioRealButton) rootView.findViewById(R.id.rb_d5);
-        rbDays[5] = (RadioRealButton) rootView.findViewById(R.id.rb_d6);
+        mButtonGroupDays = (RadioRealButtonGroup) rootView.findViewById(R.id.rg_days);
+        mButtonGroupDays.setPosition(mDay, true);
 
-        RadioRealButtonGroup buttonGroupDays = (RadioRealButtonGroup) rootView.findViewById(R.id.rg_days);
-        RadioRealButtonGroup buttonGroupPeriods = (RadioRealButtonGroup) rootView.findViewById(R.id.rg_per);
+        mButtonGroupPeriods = (RadioRealButtonGroup) rootView.findViewById(R.id.rg_per);
+        mButtonGroupPeriods.setPosition((mPeriod - 1) / 2, true);
 
-        buttonGroupDays.setOnClickedButtonListener(this);
-        buttonGroupPeriods.setOnClickedButtonListener(this);
-
-//        for (int i = 0; i < rbPeriods.length; i++) {
-//            rbPeriods[i].setOnCheckedChangeListener(this);
-//            rbDays[i].setOnCheckedChangeListener(this);
-//
-//            rbPeriods[i].setOnClickListener(this);
-//            rbDays[i].setOnClickListener(this);
-//        }
+        mButtonGroupDays.setOnClickedButtonListener(this);
+        mButtonGroupPeriods.setOnClickedButtonListener(this);
 
         initRVTimeTable();
     }
 
     private void initRVTimeTable() {
         final RecyclerView rvTimeTable = (RecyclerView) rootView.findViewById(R.id.rv);
+
         DatabaseReference timeRef = FirebaseDatabase.getInstance().getReference().child(TimeTable.DR_TIMETABLE).child("Y2017_1");
+        timeRef.keepSynced(true);
         timeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,10 +118,14 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
                 List<TimeTable> listTimeTables = dataSnapshot.getValue(t);
                 if (listTimeTables != null) {
                     List<TimeTable.TimeLine> timeLines = getLinesFromTimeTable(listTimeTables);
-                    TimeTableAdapter adapter = new TimeTableAdapter(getActivity(), timeLines);
-                    rvTimeTable.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                    rvTimeTable.setAdapter(adapter);
-
+                    if (timeLines.size() != 0) {
+                        if (!rvIsVisible()) showRecyclerView();
+                        TimeTableAdapter adapter = new TimeTableAdapter(getActivity(), timeLines);
+                        rvTimeTable.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                        rvTimeTable.setAdapter(adapter);
+                    } else {
+                        showEmptyView();
+                    }
                 }
             }
 
@@ -105,6 +134,26 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
 
             }
         });
+    }
+
+    private void showEmptyView() {
+        rootView.findViewById(R.id.rv).setVisibility(View.GONE);
+        rootView.findViewById(R.id.tv_empty).setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.BounceInLeft)
+                .duration(800)
+                .playOn(rootView.findViewById(R.id.tv_empty));
+    }
+
+    private void showRecyclerView() {
+        rootView.findViewById(R.id.tv_empty).setVisibility(View.GONE);
+        rootView.findViewById(R.id.rv).setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.BounceInRight)
+                .duration(1000)
+                .playOn(rootView.findViewById(R.id.rv));
+    }
+
+    private boolean rvIsVisible() {
+        return rootView.findViewById(R.id.rv).getVisibility() == View.VISIBLE;
     }
 
     private List<TimeTable.TimeLine> getLinesFromTimeTable(List<TimeTable> list) {
@@ -163,9 +212,6 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
                 mPeriod = 7;
                 break;
             case R.id.rb_p5:
-                mPeriod = 9;
-                break;
-            case R.id.rb_p6:
                 mPeriod = 9;
                 break;
         }

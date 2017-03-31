@@ -1,14 +1,21 @@
 package br.com.viniciusalmada.civilapp;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.daimajia.easing.Glider;
+import com.daimajia.easing.Skill;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -42,12 +49,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 
 import br.com.viniciusalmada.civilapp.domains.User;
+import br.com.viniciusalmada.civilapp.interfaces.NetworkChangesImpl;
+import br.com.viniciusalmada.civilapp.utils.NetworkStateReceiver;
 
 /**
  * Created by vinicius-almada on 16/03/17.
  */
 
-public class LoginActivity extends CommonActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends CommonActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, NetworkChangesImpl {
     public static final String TAG = "LoginActivity";
     public static final String KEY_USER_PARCELABLE = "KEY_USER_PARCELABLE";
     private static final int RC_SIGN_IN = 9001;
@@ -59,97 +68,21 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     private Button btGoogle;
     private ProgressBar pbLogin;
 
+    private NetworkStateReceiver networkStateReceiver;
+
     @Override
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
-
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, null /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
-        // Init Facebook Login
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "onSuccess: " + loginResult.getAccessToken());
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel: ");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "onError: " + error.getMessage());
-                showLoginButtons();
-            }
-        });
-
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                showProgress();
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-//                    showDialog("Initializing...", true);
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(User.DR_USERS);
-                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String code = dataSnapshot.child(user.getUid()).child("code").getValue(String.class);
-                            Log.d(TAG, "onDataChange: " + code);
-                            if (code != null) {
-                                Log.d(TAG, "onDataChange: code not null");
-                                User u = dataSnapshot.child(user.getUid()).getValue(User.class);
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                intent.putExtra(KEY_USER_PARCELABLE, u);
-                                startActivity(intent);
-                                showToast("Login successfully", true);
-                                finish();
-                            } else {
-                                Log.d(TAG, "onDataChange: code null");
-                                User u = new User();
-                                u.setName(user.getDisplayName());
-                                u.setEmail(user.getEmail());
-                                u.setProfilePic(String.valueOf(user.getPhotoUrl()));
-                                u.setUid(user.getUid());
-                                User.writeOnFirebase(u);
-
-                                Intent intent = new Intent(LoginActivity.this, DataInitialInputActivity.class);
-                                intent.putExtra(KEY_USER_PARCELABLE, u);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                    showLoginButtons();
-                }
-            }
-        };
         setContentView(R.layout.activity_login);
+
         initViews();
+
+        IntentFilter it = new IntentFilter();
+        it.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        it.addCategory(Intent.CATEGORY_DEFAULT);
+        networkStateReceiver = new NetworkStateReceiver(this);
+
+        registerReceiver(networkStateReceiver, it);
     }
 
     @Override
@@ -172,13 +105,14 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        if (mAuth != null && mAuthListener != null)
+            mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
+        if (mAuth != null && mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
@@ -186,10 +120,107 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        hideDialog();
+        unregisterReceiver(networkStateReceiver);
     }
 
-    private void handleFacebookAccessToken(AccessToken accessToken) {
+    @Override
+    protected void initViews() {
+        btFacebook = (Button) findViewById(R.id.bt_login_facebook);
+        btGoogle = (Button) findViewById(R.id.bt_login_google);
+        pbLogin = (ProgressBar) findViewById(R.id.pb_login);
+
+        btFacebook.setOnClickListener(this);
+        btGoogle.setOnClickListener(this);
+    }
+
+    private void initConnections() {
+        try {
+            initGoogleSignIn();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        initFacebookSignIn();
+        initAuth();
+    }
+
+    private void initFacebookSignIn() {
+        // Init Facebook Login
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "onSuccess: " + loginResult.getAccessToken());
+                firebaseAuthWithFacebook(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "onCancel: ");
+                showLoginButtons();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "onError: " + error.getMessage());
+                showLoginButtons();
+            }
+        });
+    }
+
+    private void initGoogleSignIn() throws IllegalStateException {
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
+
+    private void initAuth() {
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                showProgress();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(User.DR_USERS);
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String code = dataSnapshot.child(user.getUid()).child("code").getValue(String.class);
+                            if (code != null) {
+                                User u = dataSnapshot.child(user.getUid()).getValue(User.class);
+                                confIntent(HomeActivity.class, u, true);
+                            } else {
+                                User u = new User();
+                                u.setName(user.getDisplayName());
+                                u.setEmail(user.getEmail());
+                                u.setProfilePic(String.valueOf(user.getPhotoUrl()));
+                                u.setUid(user.getUid());
+                                User.writeOnFirebase(u);
+                                confIntent(DataInitialInputActivity.class, u, false);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                } else {
+                    showLoginButtons();
+                }
+            }
+        };
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    private void firebaseAuthWithFacebook(AccessToken accessToken) {
         if (accessToken != null) {
             AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
 
@@ -251,24 +282,51 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /*private void disableButtons() {
+        findViewById(R.id.bt_login_facebook).setEnabled(false);
+        findViewById(R.id.bt_login_google).setEnabled(false);
+    }
+
+    private void enableButtons() {
+        findViewById(R.id.bt_login_facebook).setEnabled(true);
+        findViewById(R.id.bt_login_google).setEnabled(true);
+    }*/
+
     private void showLoginButtons() {
-        pbLogin.setVisibility(View.GONE);
         ((LinearLayout) btFacebook.getParent()).setVisibility(View.VISIBLE);
+        pbLogin.setVisibility(View.GONE);
+        findViewById(R.id.bt_offline).setVisibility(View.GONE);
     }
 
     private void showProgress() {
-        pbLogin.setVisibility(View.VISIBLE);
         ((LinearLayout) btFacebook.getParent()).setVisibility(View.GONE);
+        pbLogin.setVisibility(View.VISIBLE);
+        findViewById(R.id.bt_offline).setVisibility(View.GONE);
+        AnimatorSet set = new AnimatorSet();
+        pbLogin.setTranslationX(0);
+        pbLogin.setTranslationY(0);
+        Skill s = Skill.ElasticEaseIn;
+        set.playTogether(
+                Glider.glide(s, 2200, ObjectAnimator.ofFloat(pbLogin, "translationY", 0, -160))
+        );
+        set.setDuration(2200);
+        set.start();
+
     }
 
-    @Override
-    protected void initViews() {
-        btFacebook = (Button) findViewById(R.id.bt_login_facebook);
-        btGoogle = (Button) findViewById(R.id.bt_login_google);
-        pbLogin = (ProgressBar) findViewById(R.id.pb_login);
+    private void showOffline() {
+        ((LinearLayout) btFacebook.getParent()).setVisibility(View.GONE);
+        pbLogin.setVisibility(View.GONE);
+        findViewById(R.id.bt_offline).setVisibility(View.VISIBLE);
+    }
 
-        btFacebook.setOnClickListener(this);
-        btGoogle.setOnClickListener(this);
+    private void confIntent(Class<? extends AppCompatActivity> classDestiny, User u2Intent, boolean showToast) {
+        Intent intent = new Intent(this, classDestiny);
+        intent.putExtra(KEY_USER_PARCELABLE, u2Intent);
+        startActivity(intent);
+        if (showToast)
+            showToast("Login successfully", true);
+        finish();
     }
 
     @Override
@@ -288,6 +346,17 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        showLoginButtons();
+    }
 
+    @Override
+    public void setConnection(boolean isConnected) {
+        Log.d(TAG, "setConnection: " + isConnected);
+        if (isConnected) {
+            initConnections();
+        } else {
+            showSnackbar("Sem conexão, ative para entrar ou acesse offline", findViewById(R.id.bt_login_google));
+            showOffline();
+        }
     }
 }

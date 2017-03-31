@@ -17,4 +17,5 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="common_72">72dp</dimen>
     <dimen name="common_40">40dp</dimen>
+    <dimen name="common_20">20dp</dimen>
 </resources>

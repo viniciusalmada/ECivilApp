@@ -1,4 +1,4 @@
-package br.com.viniciusalmada.civilapp.extras;
+package br.com.viniciusalmada.civilapp.utils;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;

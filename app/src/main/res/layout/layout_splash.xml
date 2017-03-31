@@ -59,7 +59,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-            <br.com.viniciusalmada.civilapp.extras.FacebookButton
+            <br.com.viniciusalmada.civilapp.utils.FacebookButton
                 android:id="@+id/bt_login_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -73,7 +73,7 @@
                 android:textAllCaps="false"
                 android:theme="@style/ButtonCustomStyleFacebook" />
 
-            <br.com.viniciusalmada.civilapp.extras.GoogleButton
+            <br.com.viniciusalmada.civilapp.utils.GoogleButton
                 android:id="@+id/bt_login_google"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

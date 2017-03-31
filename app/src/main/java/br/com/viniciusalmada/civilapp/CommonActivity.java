@@ -56,7 +56,7 @@ public abstract class CommonActivity extends AppCompatActivity {
     }
 
     protected void showSnackbar(String text, View view) {
-        Snackbar.make(view, text, Snackbar.LENGTH_SHORT)
+        Snackbar.make(view, text, Snackbar.LENGTH_INDEFINITE)
                 .setAction("OK", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -80,7 +80,7 @@ public abstract class CommonActivity extends AppCompatActivity {
     }
 
     protected void showErrorConnectionSnackar(View v) {
-        Snackbar.make(v, R.string.no_connection, Snackbar.LENGTH_LONG)
+        Snackbar.make(v, R.string.no_connection, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.to_conect, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

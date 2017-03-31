@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mock_periods">
+        <item>1º Período</item>
+        <item>2º Período</item>
+        <item>3º Período</item>
+        <item>4º Período</item>
+        <item>5º Período</item>
+        <item>6º Período</item>
+        <item>7º Período</item>
+        <item>8º Período</item>
+        <item>9º Período</item>
+        <item>10º Período</item>
+    </string-array>
+
+    <string-array name="mock_subjects">
+        <item>Mecânica dos Solos II</item>
+        <item>Materiais de Construção II</item>
+        <item>Análise de Estruturas I</item>
+        <item>Cálculo Numérico</item>
+        <item>Hidráulica Aplicada</item>
+    </string-array>
+</resources>

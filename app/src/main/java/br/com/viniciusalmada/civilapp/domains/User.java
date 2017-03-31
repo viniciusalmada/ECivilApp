@@ -8,12 +8,17 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by vinicius-almada on 18/03/17.
  */
-
+@IgnoreExtraProperties
 public class User implements Parcelable {
     public static final String DR_USERS = "users";
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -32,6 +37,7 @@ public class User implements Parcelable {
     private String profilePic;
     private String uid;
     private String code;
+    private int period;
 
     public User() {
     }
@@ -42,6 +48,7 @@ public class User implements Parcelable {
         profilePic = in.readString();
         code = in.readString();
         uid = in.readString();
+        period = in.readInt();
     }
 
     public static void writeOnFirebase(User u) {
@@ -52,6 +59,18 @@ public class User implements Parcelable {
                 Log.d("User ", "onComplete: " + task.isSuccessful());
             }
         });
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("name", name);
+        hashMap.put("email", email);
+        hashMap.put("profilePic", profilePic);
+        hashMap.put("code", code);
+        hashMap.put("uid", uid);
+        hashMap.put("period", period);
+        return hashMap;
     }
 
     public String getName() {
@@ -94,6 +113,14 @@ public class User implements Parcelable {
         this.code = code;
     }
 
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -106,5 +133,6 @@ public class User implements Parcelable {
         dest.writeString(profilePic);
         dest.writeString(code);
         dest.writeString(uid);
+        dest.writeInt(period);
     }
 }

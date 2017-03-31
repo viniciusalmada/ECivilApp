@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
 
+        <item
+            android:id="@+id/drawer_simec"
+            android:icon="@mipmap/ic_simec"
+            android:title="Simec"/>
         <item
             android:id="@+id/drawer_news"
             android:icon="@drawable/ic_news"
@@ -17,7 +22,20 @@
             android:title="Syllabus" />
         <item
             android:id="@+id/drawer_monograph"
-            android:icon="@drawable/ic_clock"
+            android:icon="@drawable/ic_school"
             android:title="Monographs" />
     </group>
+
+    <item android:title="Conta">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item
+                    android:id="@+id/drawer_signout"
+                    android:icon="@drawable/ic_signout"
+                    android:title="Sair"/>
+            </group>
+        </menu>
+    </item>
+
+
 </menu>

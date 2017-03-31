@@ -1,6 +1,5 @@
 package br.com.viniciusalmada.civilapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -20,25 +19,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import br.com.viniciusalmada.civilapp.domains.User;
 import br.com.viniciusalmada.civilapp.fragments.NewsFragment;
+import br.com.viniciusalmada.civilapp.fragments.SimecFragment;
+import br.com.viniciusalmada.civilapp.fragments.SyllabusFragment;
 import br.com.viniciusalmada.civilapp.fragments.TimetableFragment;
+import br.com.viniciusalmada.civilapp.utils.GeneralMethods;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static br.com.viniciusalmada.civilapp.LoginActivity.KEY_USER_PARCELABLE;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     public static final String TAG = "HomeActivity";
+    public static final int[] TAB_ICONS =
+            {R.mipmap.ic_simec,
+                    R.drawable.ic_news,
+                    R.drawable.ic_clock,
+                    R.drawable.ic_description,
+                    R.drawable.ic_school};
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+
+    private User userLogged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +66,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nv_home);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.drawer_news);
+        navigationView.setCheckedItem(R.id.drawer_simec);
         navigationView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.drawer_color));
         navigationView.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.drawer_color));
-        navigationView.setBackgroundColor(0xFFE0E0E0);
+        navigationView.setBackgroundColor(0xFFFFFFFF);
         initUser(navigationView.getHeaderView(0));
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -71,6 +81,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout.setHorizontalScrollBarEnabled(false);
+        mTabLayout.setHorizontalFadingEdgeEnabled(true);
+//        setupTabIcons();
 
     }
 
@@ -86,7 +99,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else
-            super.onBackPressed();
+            finish();
+    }
+
+    public User getUserLogged() {
+        return userLogged;
+    }
+
+    public void setUserLogged(User userLogged) {
+        this.userLogged = userLogged;
     }
 
     private void initUser(View header) {
@@ -96,11 +117,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         CircleImageView ivProfile = (CircleImageView) header.findViewById(R.id.civ_profile_header);
 
         User user = getIntent().getParcelableExtra(KEY_USER_PARCELABLE);
+        setUserLogged(user);
         tvName.setText(user.getName());
         tvEmail.setText(user.getEmail());
         tvCode.setText(user.getCode());
         Picasso.with(this).load(user.getProfilePic()).into(ivProfile);
     }
+
+   /* private void setupTabIcons() {
+        if (mTabLayout != null) {
+            for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+                mTabLayout.getTabAt(i).setIcon(TAB_ICONS[i]);
+            }
+        }
+    }*/
 
 
     @Override
@@ -119,9 +149,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+//            FirebaseAuth.getInstance().signOut();
+//            startActivity(new Intent(this, LoginActivity.class));
+//            finish();
             return true;
         }
 
@@ -132,17 +163,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.drawer_news:
+            case R.id.drawer_simec:
                 mViewPager.setCurrentItem(0, true);
                 break;
-            case R.id.drawer_timetable:
+            case R.id.drawer_news:
                 mViewPager.setCurrentItem(1, true);
                 break;
-            case R.id.drawer_syllabus:
+            case R.id.drawer_timetable:
                 mViewPager.setCurrentItem(2, true);
                 break;
-            case R.id.drawer_monograph:
+            case R.id.drawer_syllabus:
                 mViewPager.setCurrentItem(3, true);
+                break;
+            case R.id.drawer_monograph:
+                mViewPager.setCurrentItem(4, true);
+                break;
+            case R.id.drawer_signout:
+                GeneralMethods.signOutFinish(this, LoginActivity.class);
                 break;
         }
 
@@ -162,15 +199,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nv_home);
         switch (position) {
             case 0:
-                navigationView.setCheckedItem(R.id.drawer_news);
+                navigationView.setCheckedItem(R.id.drawer_simec);
                 break;
             case 1:
-                navigationView.setCheckedItem(R.id.drawer_timetable);
+                navigationView.setCheckedItem(R.id.drawer_news);
                 break;
             case 2:
-                navigationView.setCheckedItem(R.id.drawer_syllabus);
+                navigationView.setCheckedItem(R.id.drawer_timetable);
                 break;
             case 3:
+                navigationView.setCheckedItem(R.id.drawer_syllabus);
+                break;
+            case 4:
                 navigationView.setCheckedItem(R.id.drawer_monograph);
                 break;
         }
@@ -192,9 +232,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if (position == 0) {
-                return new NewsFragment();
+                return new SimecFragment();
             } else if (position == 1) {
+                return new NewsFragment();
+            } else if (position == 2) {
                 return new TimetableFragment();
+            } else if (position == 3) {
+                return new SyllabusFragment();
             } else {
                 return new Fragment();
             }
@@ -203,23 +247,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "NEWS";
+                    return getString(R.string.simec);
                 case 1:
-                    return "TIMETABLE";
+                    return getString(R.string.news);
                 case 2:
-                    return "SYLLABUS";
+                    return getString(R.string.timetable);
                 case 3:
-                    return "MONOGRAPHS";
+                    return getString(R.string.syllabus);
+                case 4:
+                    return getString(R.string.monographies);
                 default:
                     return "ANOTHER FRAGMENT";
             }
+//           return null;
         }
     }
 }

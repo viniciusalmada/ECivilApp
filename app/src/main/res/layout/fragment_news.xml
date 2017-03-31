@@ -15,8 +15,10 @@
         android:padding="16dp">
 
         <RelativeLayout
+            android:id="@+id/rl_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="visible">
 
 
             <com.daimajia.slider.library.SliderLayout
@@ -36,33 +38,38 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/slider_news_dynamics"
-                android:layout_marginBottom="@dimen/common_16">
+                android:layout_marginBottom="@dimen/common_16"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/iv_news_featured"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        custom:srcCompat="@color/colorAccent" />
-
                     <TextView
                         android:id="@+id/tv_title_news_featured"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/iv_news_featured"
-                        android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/iv_news_featured"
-                        android:layout_toRightOf="@+id/iv_news_featured"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/iv_news_featured"
                         android:padding="@dimen/common_8"
                         android:textColor="#000"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="Performances marcam mostra literária de campus do IFMA" />
+
+                    <ImageView
+                        android:id="@+id/iv_news_featured"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        custom:srcCompat="@color/colorAccent"/>
+
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
@@ -85,11 +92,31 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/rv_news_non_image"
-                android:paddingBottom="@dimen/common_24"
+                android:layout_marginBottom="@dimen/common_36"
                 android:scrollbars="horizontal" />
 
 
         </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_36"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_err"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:text="Site indisponível ou conexão fraca."
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

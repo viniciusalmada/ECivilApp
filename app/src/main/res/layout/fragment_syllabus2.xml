@@ -1,0 +1,527 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    tools:context="br.com.viniciusalmada.civilapp.fragments.SyllabusFragment"
+    tools:ignore="RtlHardcoded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_pb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_36"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_8"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_marginTop="@dimen/common_16"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_name_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:theme="@style/TextViewNameHeader"
+                        tools:text="Introdução ao Método dos Elementos Finitos"/>
+
+                    <ImageButton
+                        android:id="@+id/bt_pick_syllabus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/tv_name_in"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="@dimen/common_8"
+                        android:background="@android:color/transparent"
+                        android:gravity="top"
+                        android:src="@drawable/ic_expand_more"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_name_in"
+                        android:background="@drawable/gradient_backgroound_spinner"
+                        android:orientation="vertical">
+
+                        <View
+                            android:id="@+id/view7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:background="#fff"
+                            android:visibility="gone"/>
+
+                        <Spinner
+                            android:id="@+id/sp_periods"
+                            style="@style/Platform.Widget.AppCompat.Spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/common_24"
+                            android:layout_marginRight="@dimen/common_24"
+                            android:layout_marginTop="@dimen/common_8"/>
+
+                        <Spinner
+                            android:id="@+id/sp_subjects"
+                            style="@style/Platform.Widget.AppCompat.Spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/common_16"
+                            android:layout_marginLeft="@dimen/common_24"
+                            android:layout_marginRight="@dimen/common_24"
+                            android:layout_marginTop="@dimen/common_8"/>
+
+                        <View
+                            android:id="@+id/view6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="1dp"
+                            android:background="#fff"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+
+                    <!--INIT : Period Line-->
+                    <TextView
+                        android:id="@+id/tv_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/ll_picker"
+                        android:layout_toLeftOf="@+id/tv_prereq_in"
+                        android:layout_toStartOf="@+id/tv_prereq_in"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Período"
+                        android:theme="@style/TextViewPrefixHeader"/>
+
+                    <TextView
+                        android:id="@+id/tv_period_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_period"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tv_period"
+                        android:layout_below="@+id/tv_name_in"
+                        android:layout_toRightOf="@+id/tv_code"
+                        android:fontFamily="sans-serif-condensed"
+                        android:theme="@style/TextViewAttrHeader"
+                        tools:text="7º período"/>
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/tv_code_in"
+                        android:layout_alignRight="@+id/tv_code_in"
+                        android:layout_below="@+id/tv_period_in"
+                        android:background="#777"
+                        android:visibility="visible"/>
+                    <!--END : Period Line-->
+
+                    <!--INIT : Code Line-->
+                    <TextView
+                        android:id="@+id/tv_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/view5"
+                        android:layout_toLeftOf="@+id/tv_prereq_in"
+                        android:layout_toStartOf="@+id/tv_prereq_in"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Código"
+                        android:theme="@style/TextViewPrefixHeader"/>
+
+                    <TextView
+                        android:id="@+id/tv_code_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_code"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/tv_code"
+                        android:layout_below="@+id/tv_name_in"
+                        android:layout_toRightOf="@+id/tv_code"
+                        android:fontFamily="sans-serif-condensed"
+                        android:theme="@style/TextViewAttrHeader"
+                        tools:text="CE113"/>
+
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/tv_code_in"
+                        android:layout_alignRight="@+id/tv_code_in"
+                        android:layout_below="@+id/tv_code"
+                        android:background="#777"
+                        android:visibility="visible"/>
+                    <!--END : Code Line-->
+
+                    <!--INIT : Pre-requisites Line-->
+                    <TextView
+                        android:id="@+id/tv_prereq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_prereq_in"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/view1"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Pré-requisitos"
+                        android:theme="@style/TextViewPrefixHeader"/>
+
+                    <TextView
+                        android:id="@+id/tv_prereq_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/view1"
+                        android:layout_toRightOf="@+id/tv_prereq"
+                        android:fontFamily="sans-serif-condensed"
+                        android:theme="@style/TextViewAttrHeader"
+                        tools:text="Cálculo Diferencial e Integral I\n\nCálculo Vetorial e Geometria Análitica"/>
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/tv_prereq_in"
+                        android:layout_alignRight="@+id/tv_prereq_in"
+                        android:layout_below="@+id/tv_prereq_in"
+                        android:background="#777"
+                        android:visibility="visible"/>
+                    <!--END : Pre-requisites Line-->
+
+                    <!--INIT : Semester load Line-->
+                    <TextView
+                        android:id="@+id/tv_sload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignRight="@+id/tv_prereq"
+                        android:layout_below="@+id/view2"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="CH Semestral"
+                        android:theme="@style/TextViewPrefixHeader"/>
+
+                    <TextView
+                        android:id="@+id/tv_sload_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/view2"
+                        android:layout_toRightOf="@+id/tv_sload"
+                        android:fontFamily="sans-serif-condensed"
+                        android:theme="@style/TextViewAttrHeader"
+                        tools:text="60 horas"/>
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/tv_sload_in"
+                        android:layout_alignRight="@+id/tv_sload_in"
+                        android:layout_below="@+id/tv_sload"
+                        android:background="#777"
+                        android:visibility="visible"/>
+                    <!--END : Semester load Line-->
+
+                    <!--INIT : Weekly load Line-->
+                    <TextView
+                        android:id="@+id/tv_wload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignRight="@+id/tv_prereq"
+                        android:layout_below="@+id/view3"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="CH Semanal"
+                        android:theme="@style/TextViewPrefixHeader"/>
+
+                    <TextView
+                        android:id="@+id/tv_wload_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/view3"
+                        android:layout_toRightOf="@+id/tv_wload"
+                        android:fontFamily="sans-serif-condensed"
+                        android:theme="@style/TextViewAttrHeader"
+                        tools:text="6 horas"/>
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_alignLeft="@+id/tv_wload_in"
+                        android:layout_alignRight="@+id/tv_wload_in"
+                        android:layout_below="@+id/tv_wload"
+                        android:background="#777"
+                        android:visibility="visible"/>
+                    <!--END : Weekly load Line-->
+
+                    <!--INIT : Credits Line-->
+                    <TextView
+                        android:id="@+id/tv_credits"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignRight="@+id/tv_prereq"
+                        android:layout_below="@+id/view4"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Créditos"
+                        android:theme="@style/TextViewLastPrefixHeader"/>
+
+                    <TextView
+                        android:id="@+id/tv_credits_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/view4"
+                        android:layout_toRightOf="@+id/tv_credits"
+                        android:fontFamily="sans-serif-condensed"
+                        android:theme="@style/TextViewAttrHeader"
+                        tools:text="6 créditos"/>
+
+                    <!--END : Weekly load Line-->
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Syllabus-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_8"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_marginTop="@dimen/common_16"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tv_syllabus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Ementa"
+                        android:theme="@style/TextViewNameCategories"/>
+
+                    <TextView
+                        android:id="@+id/tv_syllabus_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_syllabus"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Relação entre Meio Ambiente e o Saneamento. O conceito de Saneamento Básico. Serviços de atendimento do Saneamento Básico. Sistemas de Abastecimento de Água. Tecnologias no Esgotamento Sanitário. Gestão de Resíduos Sólidos. Controle dos Vetores. Legislação Ambiental."
+                        android:theme="@style/TextViewAttrHeader"/>
+
+                    <ImageButton
+                        android:id="@+id/bt_less_syllabus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/tv_syllabus"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignTop="@id/tv_syllabus"
+                        android:layout_marginRight="@dimen/common_8"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_expand_more"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Objective-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_8"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_marginTop="@dimen/common_16"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tv_objectives"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Objetivos"
+                        android:theme="@style/TextViewNameCategories"/>
+
+                    <TextView
+                        android:id="@+id/tv_objectives_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_objectives"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Conscientizar o aluno que o saneamento é uma atividade da engenharia civil que visa proporcionar saúde ao ser humano e proteção ao meio ambiente através de obras civis e ações sociais."
+                        android:theme="@style/TextViewAttrHeader"/>
+
+                    <ImageButton
+                        android:id="@+id/bt_less_objectives"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_objectives"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignTop="@+id/tv_objectives"
+                        android:layout_marginRight="@dimen/common_8"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_expand_more"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Content-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_8"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_marginTop="@dimen/common_16"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Conteúdo Programático"
+                        android:theme="@style/TextViewNameCategories"/>
+
+                    <TextView
+                        android:id="@+id/tv_content_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="1. Meio Ambiente e o Saneamento Básico\n\n2. Saneamento Básico\n2.1. Histórico\n2.2. Conceitos\n2.3. Serviços\n2.4. Legislação – Constituições Estaduais\n2.5. Lei Orgânica Municipal\n2.6. O Saneamento e o Planejamento Urbano\n2.7. Plano Diretor – Uso e Ocupação do Solo\n2.8. Gestão dos Serviços de Saneamento\n2.9. Saneamento e Controle Social\n\n3. Saneamento e Saúde Pública\n3.1. Relação entre Saneamento e Saúde Pública\n3.2. Definição de Saneamento\n3.3. Hábitos higiênicos e a educação sanitária\n3.4. Doenças ocasionadas pela falta de higiene e saneamento\n3.5. Controle de vetores\n\n4. Abastecimento de Água\n4.1. Histórico \n4.2. Definição técnica \n4.3. Importância de um Sistema de Abastecimento de Água\n4.4. Consumo “per capita” – Demanda de água\n4.5. Variações diárias (k1) – Variações horárias (k2)\n4.6. Qualidade da água – Características físicas, químicas e biológicas\n4.7. Padrões de potabilidade\n4.8. Unidades de um Sistema de Abastecimento de Água\n4.9. Manancial\n4.10. Captação – águas superficiais, águas subterrâneas, outros\n4.11. Adução – transporte e movimentação da água\n4.12. Estações elevatórias – componentes de uma estação elevatória\n4.13. Reservação: localização e posição dos reservatórios\n4.14. Rede de distribuição de água – Classificação dos condutos que compõem a rede de distribuição\n4.15. Materiais utilizados numa rede de distribuição\n4.16. Dimensionamento de uma rede de distribuição de água\n\n5. Esgotamento sanitário\n5.1. Histórico\n5.2. Conceitos básicos\n5.3. Produção “per capita” de esgotos\n5.4. Variações diárias (k1) – Variações horárias (k2)\n5.5. Ciclo do uso da água\n5.6. Caracterização da quantidade de esgotos – vazão domestica vazão de infiltração e vazão industrial\n5.7. Unidades de um Sistema de Esgotamento Sanitário (SES)\n5.8. Níveis de tratamento de esgotos\n5.9. Estação de Tratamento de Esgotos (ETE)\n5.10. Dimensionamento de uma rede de esgotamento sanitário\n5.11. Reuso de água\n\n6. Resíduos sólidos\n6.1. Histórico\n6.2. Conceitos básicos\n6.3. Classificação dos resíduos sólidos quanto a tipologia\n6.4. Classificação dos resíduos sólidos quanto a origem\n6.5. Classificação dos resíduos sólidos quanto a ABNT\n6.6. Caracterização dos resíduos sólidos\n6.7. Manejo e estado da arte dos resíduos sólidos\n6.8. Tratamento dos resíduos sólidos (equipamentos para o tratamento de esgotos)\n6.9. Destinação final dos resíduos sólidos\n6.10. Compostagem e vermicompostagem\n6.11. Aterro sanitário – dimensionamento"
+                        android:theme="@style/TextViewAttrHeader"/>
+
+                    <ImageButton
+                        android:id="@+id/bt_less_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignTop="@+id/tv_content"
+                        android:layout_marginRight="@dimen/common_8"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_expand_more"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--References-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_36"
+                android:layout_marginLeft="@dimen/common_16"
+                android:layout_marginRight="@dimen/common_16"
+                android:layout_marginTop="@dimen/common_16"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tv_ref"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Referências Bibliográficas"
+                        android:theme="@style/TextViewNameCategories"/>
+
+                    <TextView
+                        android:id="@+id/tv_ref_in"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_ref"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="1. CANHOLI, Aluísio Pardo. Drenagem urbana e controle de enchentes. Rio de Janeiro: ABES, 2005.\n2. DALTRO Filho, José. Saneamento ambiental. Rio de Janeiro: ABES, 2004\n3. LIMA, José Dantas de. Sistemas integrados de destinação final de resíduos sólidos urbanos. Rio de Janeiro: ABES, 2005.\n4. NETTO, José Martiniano de. Manual de hidráulica. São Paulo: Edgard Blücher, 1998. CASSINI, Sérvio Túlio. Digestão de resíduos sólidos orgânicos e aproveitamento do biogás. Rio de Janeiro: ABES, 2003. \n"
+                        android:theme="@style/TextViewAttrHeader"/>
+
+                    <ImageButton
+                        android:id="@+id/bt_less_ref"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_ref"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignTop="@+id/tv_ref"
+                        android:layout_marginRight="@dimen/common_8"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_expand_more"/>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

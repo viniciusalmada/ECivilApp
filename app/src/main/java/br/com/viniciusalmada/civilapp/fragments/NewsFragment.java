@@ -1,6 +1,5 @@
 package br.com.viniciusalmada.civilapp.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,27 +18,27 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.nodes.Document;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.NoSuchElementException;
 
-import br.com.viniciusalmada.civilapp.LoginActivity;
 import br.com.viniciusalmada.civilapp.R;
 import br.com.viniciusalmada.civilapp.adapters.NewsImagesSmallerAdapter;
 import br.com.viniciusalmada.civilapp.adapters.NewsNonImageAdapter;
 import br.com.viniciusalmada.civilapp.domains.News;
-import br.com.viniciusalmada.civilapp.extras.HandlerJsoup;
+import br.com.viniciusalmada.civilapp.interfaces.HandlerDownloadImpl;
 import br.com.viniciusalmada.civilapp.utils.AlertLinkExternal;
+import br.com.viniciusalmada.civilapp.utils.GeneralMethods;
+import br.com.viniciusalmada.civilapp.utils.HandlerJsoup;
 
 /**
  * Created by vinicius-almada on 19/03/17.
  */
 
-public class NewsFragment extends Fragment implements BaseSliderView.OnSliderClickListener, View.OnClickListener {
+public class NewsFragment extends Fragment implements BaseSliderView.OnSliderClickListener, View.OnClickListener, HandlerDownloadImpl {
     public static final String TAG = "NewsFragment";
     private static final String URL_IFMA = "http://portal.ifma.edu.br/";
     private Document doc;
@@ -52,42 +48,39 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initJsoup();
-
         setHasOptionsMenu(true);
-    }
-
-    private void initJsoup() {
-        HandlerJsoup handlerJsoup = new HandlerJsoup();
-        handlerJsoup.execute(URL_IFMA);
-        try {
-            doc = handlerJsoup.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_news, container, false);
+        hideNews();
 
         return rootView;
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        initViews();
-        slNewsDynamics.startAutoCycle();
+        HandlerJsoup handlerJsoup = new HandlerJsoup(this);
+        handlerJsoup.execute(URL_IFMA);
 
-        ((NestedScrollView) rootView.findViewById(R.id.root_nested)).smoothScrollTo(0, 0);
+//        scrollLayout();
+        if (slNewsDynamics != null) slNewsDynamics.startAutoCycle();
+
         ((NestedScrollView) rootView.findViewById(R.id.root_nested)).setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 Log.d(TAG, "onScrollChange: " + scrollX + "\t" + scrollY);
             }
         });
+        ((NestedScrollView) rootView.findViewById(R.id.root_nested)).smoothScrollTo(0, 0);
     }
 
     @Override
@@ -97,26 +90,27 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
         super.onStop();
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_news_fragment, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    /*private void scrollLayout() {
+        ((NestedScrollView) rootView.findViewById(R.id.root_nested)).smoothScrollTo(0, 0);
+    }*/
+
+    private void showNews() {
+        rootView.findViewById(R.id.rl_container).setVisibility(View.VISIBLE);
+        rootView.findViewById(R.id.pb_news).setVisibility(View.GONE);
+        rootView.findViewById(R.id.tv_err).setVisibility(View.GONE);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                initJsoup();
-                initViews();
-                return true;
-            case R.id.action_signout:
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void hideNews() {
+        rootView.findViewById(R.id.rl_container).setVisibility(View.GONE);
+        rootView.findViewById(R.id.pb_news).setVisibility(View.VISIBLE);
+        rootView.findViewById(R.id.tv_err).setVisibility(View.GONE);
+
+    }
+
+    private void showErrorConnection() {
+        rootView.findViewById(R.id.rl_container).setVisibility(View.GONE);
+        rootView.findViewById(R.id.pb_news).setVisibility(View.GONE);
+        rootView.findViewById(R.id.tv_err).setVisibility(View.VISIBLE);
     }
 
     private void initViews() {
@@ -127,62 +121,108 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
         RecyclerView rvNewsNonImage = (RecyclerView) rootView.findViewById(R.id.rv_news_non_image);
         RecyclerView rvNewsImageSmaller = (RecyclerView) rootView.findViewById(R.id.rv_news_image_smaller);
 
+        try {
+            initNews(ivNewsFeatured, tvNewsFeatured, cvNewsFeatured,
+                    rvNewsNonImage, rvNewsImageSmaller);
+
+        } catch (NullPointerException | NoSuchElementException | IllegalArgumentException e) {
+            hideNews();
+            Log.w(TAG, "initViews: ", e);
+            e.printStackTrace();
+
+        }
+//        scrollLayout();
+    }
+
+    private void initNews(ImageView ivNewsFeatured, TextView tvNewsFeatured,
+                          CardView cardView, RecyclerView rvNewsNonImage, RecyclerView rvNewsImageSmaller) {
         initNewsDynamics(slNewsDynamics);
-        initNewsFeatured(ivNewsFeatured, tvNewsFeatured, cvNewsFeatured);
+        initNewsFeatured(ivNewsFeatured, tvNewsFeatured, cardView);
         initNewsNonImage(rvNewsNonImage);
         initNewsImagesSmaller(rvNewsImageSmaller);
     }
 
-    private void initNewsImagesSmaller(RecyclerView rvNewsImageSmaller) {
+    private void initNewsImagesSmaller(RecyclerView rvNewsImageSmaller) throws NullPointerException {
         List<News.NSmallImages> nSmallImages = HandlerJsoup.getNewsSmallImages(doc);
-        NewsImagesSmallerAdapter adapter = new NewsImagesSmallerAdapter(nSmallImages, getActivity());
+        Log.d(TAG, "initNewsImagesSmaller: " + String.valueOf(nSmallImages != null));
+        if (nSmallImages != null) {
+            NewsImagesSmallerAdapter adapter = new NewsImagesSmallerAdapter(nSmallImages, getActivity());
 
-        rvNewsImageSmaller.setAdapter(adapter);
-        rvNewsImageSmaller.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        rvNewsImageSmaller.setLayoutManager(llm);
-    }
-
-    private void initNewsNonImage(RecyclerView rvNewsNonImage) {
-        List<News.NNonImage> nonImageList = HandlerJsoup.getNewsNonImage(doc);
-        NewsNonImageAdapter adapter = new NewsNonImageAdapter(nonImageList, getActivity());
-
-        rvNewsNonImage.setAdapter(adapter);
-        rvNewsNonImage.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        rvNewsNonImage.setLayoutManager(llm);
-    }
-
-    private void initNewsFeatured(ImageView ivNewsFeatured, TextView tvNewsFeatured, CardView cardView) {
-        News.NFeatured nFeatured = HandlerJsoup.getNewsFeatured(doc);
-
-        Picasso.with(getActivity()).load(nFeatured.getLinkImg()).into(ivNewsFeatured);
-        tvNewsFeatured.setText(nFeatured.getText());
-
-        ivNewsFeatured.setOnClickListener(this);
-        tvNewsFeatured.setOnClickListener(this);
-        cardView.setOnClickListener(this);
-    }
-
-    private void initNewsDynamics(SliderLayout slNewsDynamics) {
-        List<News.NDynamic> nDynamicsList = HandlerJsoup.getNewsDynamics(doc);
-        for (News.NDynamic nd : nDynamicsList) {
-            DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
-            defaultSliderView.image(nd.getLinkImg())
-                    .setScaleType(BaseSliderView.ScaleType.FitCenterCrop)
-                    .setOnSliderClickListener(this);
-
-            Bundle bundle = new Bundle();
-            defaultSliderView.bundle(bundle);
-            defaultSliderView.getBundle().putString("link", nd.getLink());
-
-            slNewsDynamics.addSlider(defaultSliderView);
+            rvNewsImageSmaller.setAdapter(adapter);
+            rvNewsImageSmaller.setHasFixedSize(true);
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            rvNewsImageSmaller.setLayoutManager(llm);
+//            scrollLayout();
+            showNews();
+        } else {
+            Log.d(TAG, "initNewsImagesSmaller: null -> called");
+            hideNews();
         }
+    }
 
-        slNewsDynamics.setPresetTransformer(SliderLayout.Transformer.Default);
-        slNewsDynamics.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
-        slNewsDynamics.setCustomAnimation(new DescriptionAnimation());
-        slNewsDynamics.setDuration(3000);
+    private void initNewsNonImage(RecyclerView rvNewsNonImage) throws NullPointerException {
+        List<News.NNonImage> nonImageList = HandlerJsoup.getNewsNonImage(doc);
+        Log.d(TAG, "initNewsNonImage: " + String.valueOf(nonImageList != null));
+        if (nonImageList != null) {
+            NewsNonImageAdapter adapter = new NewsNonImageAdapter(nonImageList, getActivity());
+
+            rvNewsNonImage.setAdapter(adapter);
+            rvNewsNonImage.setHasFixedSize(true);
+            LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+            rvNewsNonImage.setLayoutManager(llm);
+            showNews();
+//            scrollLayout();
+        } else {
+            Log.d(TAG, "initNewsNonImage: null -> called");
+            hideNews();
+        }
+    }
+
+    private void initNewsFeatured(ImageView ivNewsFeatured, TextView tvNewsFeatured, CardView cardView) throws IllegalArgumentException, NullPointerException {
+        News.NFeatured nFeatured = HandlerJsoup.getNewsFeatured(doc);
+        Log.d(TAG, "initNewsFeatured: " + String.valueOf(nFeatured != null));
+        if (nFeatured != null) {
+            Picasso.with(getActivity()).load(nFeatured.getLinkImg()).into(ivNewsFeatured);
+            tvNewsFeatured.setText(nFeatured.getText());
+
+            ivNewsFeatured.setOnClickListener(this);
+            tvNewsFeatured.setOnClickListener(this);
+            cardView.setOnClickListener(this);
+            showNews();
+//            scrollLayout();
+        } else {
+            Log.d(TAG, "initNewsFeatured: null -> called");
+            hideNews();
+        }
+    }
+
+    private void initNewsDynamics(SliderLayout slNewsDynamics) throws NullPointerException, NoSuchElementException {
+        List<News.NDynamic> nDynamicsList = HandlerJsoup.getNewsDynamics(doc);
+        Log.d(TAG, "initNewsDynamics: " + String.valueOf(nDynamicsList != null));
+        if (nDynamicsList != null) {
+            for (News.NDynamic nd : nDynamicsList) {
+                DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
+                defaultSliderView.image(nd.getLinkImg())
+                        .setScaleType(BaseSliderView.ScaleType.FitCenterCrop)
+                        .setOnSliderClickListener(this);
+
+                Bundle bundle = new Bundle();
+                defaultSliderView.bundle(bundle);
+                defaultSliderView.getBundle().putString("link", nd.getLink());
+
+                slNewsDynamics.addSlider(defaultSliderView);
+            }
+
+            slNewsDynamics.setPresetTransformer(SliderLayout.Transformer.Default);
+            slNewsDynamics.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+            slNewsDynamics.setCustomAnimation(new DescriptionAnimation());
+            slNewsDynamics.setDuration(3000);
+            showNews();
+//            scrollLayout();
+        } else {
+            Log.d(TAG, "initNewsDynamics: null -> called");
+            hideNews();
+        }
     }
 
     @Override
@@ -196,6 +236,20 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
         if (v.getId() == R.id.iv_news_featured || v.getId() == R.id.tv_title_news_featured || v.getId() == R.id.cv_news_featured) {
             String url = HandlerJsoup.getNewsFeatured(doc).getLink();
             AlertLinkExternal.openAlertDialog(url, getActivity());
+        }
+    }
+
+    @Override
+    public void onJsoupDocumentGet(Document doc) {
+        hideNews();
+        if (GeneralMethods.isConnected(getContext())) {
+            this.doc = doc;
+            Log.d(TAG, "onJsoupDocumentGet: " + doc.title());
+            initViews();
+            if (doc.title().equals(HandlerJsoup.SOCKET_TIMEOUT_EXCEPTION))
+                showErrorConnection();
+        } else {
+            hideNews();
         }
     }
 }

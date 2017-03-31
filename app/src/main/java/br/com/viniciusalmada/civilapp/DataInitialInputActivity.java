@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -40,13 +41,20 @@ public class DataInitialInputActivity extends CommonActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_next) {
+
             EditText etCode = (EditText) findViewById(R.id.et_code);
-            user.setCode(etCode.getText().toString());
-            User.writeOnFirebase(user);
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra(LoginActivity.KEY_USER_PARCELABLE, user);
-            startActivity(intent);
-            finish();
+            String code = etCode.getText().toString();
+            if (!code.equals("")) {
+                user.setCode(etCode.getText().toString());
+                User.writeOnFirebase(user);
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra(LoginActivity.KEY_USER_PARCELABLE, user);
+                startActivity(intent);
+                finish();
+            } else {
+                showToast("Insira o código ou sinalize que não tem.", true);
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -60,9 +68,21 @@ public class DataInitialInputActivity extends CommonActivity {
         CircleImageView civProfile = (CircleImageView) findViewById(R.id.civ_pic_profile);
         TextView tvName = (TextView) findViewById(R.id.tv_name);
         TextView tvEmail = (TextView) findViewById(R.id.tv_email);
+        TextView tvNoCode = (TextView) findViewById(R.id.tv_no_code);
 
         Picasso.with(this).load(user.getProfilePic()).into(civProfile);
         tvName.setText(user.getName());
         tvEmail.setText(user.getEmail());
+        tvNoCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.setCode("[Sem código]");
+                User.writeOnFirebase(user);
+                Intent intent = new Intent(DataInitialInputActivity.this, HomeActivity.class);
+                intent.putExtra(LoginActivity.KEY_USER_PARCELABLE, user);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -42,13 +45,19 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.VH> 
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        holder.tvSubject.setText(timeLines.get(position).getSubject());
-        holder.tvProf.setText(timeLines.get(position).getProfessor());
-        holder.tvTime.setText(timeLines.get(position).getTime());
-        if (position % 2 == 0)
-            holder.itemView.setBackgroundColor(Color.LTGRAY);
-        else
-            holder.itemView.setBackgroundColor(0xFFEEE);
+        if (timeLines.size() != 0) {
+            holder.tvSubject.setText(timeLines.get(position).getSubject());
+            holder.tvProf.setText(timeLines.get(position).getProfessor());
+            holder.tvTime.setText(timeLines.get(position).getTime());
+            if (position % 2 != 0)
+                holder.itemView.setBackgroundColor(Color.LTGRAY);
+            else
+                holder.itemView.setBackgroundColor(Color.WHITE);
+
+            YoYo.with(Techniques.FlipInX)
+                    .duration(800)
+                    .playOn(holder.itemView);
+        }
     }
 
     @Override

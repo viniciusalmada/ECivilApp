@@ -26,10 +26,17 @@
     <string name="_4">7º</string>
     <string name="_5">9º</string>
     <string name="_6">HP</string>
-    <string name="seg">S</string>
-    <string name="ter">T</string>
-    <string name="qua">Q</string>
-    <string name="qui">Q</string>
-    <string name="sex">S</string>
-    <string name="sab">S</string>
+    <string name="seg">SEG</string>
+    <string name="ter">TER</string>
+    <string name="qua">QUA</string>
+    <string name="qui">QUI</string>
+    <string name="sex">SEX</string>
+    <string name="sab">SAB</string>
+    <string name="news">Notícias</string>
+    <string name="timetable">Horários</string>
+    <string name="syllabus">Ementas</string>
+    <string name="monographies">Monografias</string>
+    <string name="simec">SIMEC</string>
+    <string name="period">Períodos</string>
+    <string name="hor_rios_indispon_veis">Não há horários pra hoje\n\nEnjoy! ;)</string>
 </resources>
