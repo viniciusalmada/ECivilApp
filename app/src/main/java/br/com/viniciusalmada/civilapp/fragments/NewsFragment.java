@@ -90,10 +90,6 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
         super.onStop();
     }
 
-    /*private void scrollLayout() {
-        ((NestedScrollView) rootView.findViewById(R.id.root_nested)).smoothScrollTo(0, 0);
-    }*/
-
     private void showNews() {
         rootView.findViewById(R.id.rl_container).setVisibility(View.VISIBLE);
         rootView.findViewById(R.id.pb_news).setVisibility(View.GONE);
@@ -131,7 +127,6 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
             e.printStackTrace();
 
         }
-//        scrollLayout();
     }
 
     private void initNews(ImageView ivNewsFeatured, TextView tvNewsFeatured,
@@ -249,7 +244,7 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
             if (doc.title().equals(HandlerJsoup.SOCKET_TIMEOUT_EXCEPTION))
                 showErrorConnection();
         } else {
-            hideNews();
+            showErrorConnection();
         }
     }
 }

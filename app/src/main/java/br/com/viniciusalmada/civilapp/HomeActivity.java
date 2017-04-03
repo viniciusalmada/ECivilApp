@@ -1,5 +1,6 @@
 package br.com.viniciusalmada.civilapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +73,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.drawer_color));
         navigationView.setBackgroundColor(0xFFFFFFFF);
         initUser(navigationView.getHeaderView(0));
+
+        drawer.openDrawer(Gravity.START, true);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -180,7 +184,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.drawer_signout:
                 GeneralMethods.signOutFinish(this, LoginActivity.class);
+                finish();
                 break;
+            case R.id.drawer_individual:
+                Intent intent = new Intent(this, IndividualTimetableActivity.class);
+                intent.putExtra(KEY_USER_PARCELABLE, userLogged);
+                startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.dl_main_content);

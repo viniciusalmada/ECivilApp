@@ -1,5 +1,6 @@
 package br.com.viniciusalmada.civilapp.domains;
 
+import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -21,6 +22,14 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class User implements Parcelable {
     public static final String DR_USERS = "users";
+
+    public static final String KEY_USER_NAME = "KEY_USER_NAME ";
+    public static final String KEY_USER_EMAIL = "KEY_USER_EMAIL ";
+    public static final String KEY_USER_PROFILEPIC = "KEY_USER_PROFILEPIC ";
+    public static final String KEY_USER_UID = "KEY_USER_UID ";
+    public static final String KEY_USER_CODE = "KEY_USER_CODE ";
+    public static final String KEY_USER_PERIOD = "KEY_USER_PERIOD ";
+
     public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel in) {
@@ -59,6 +68,17 @@ public class User implements Parcelable {
                 Log.d("User ", "onComplete: " + task.isSuccessful());
             }
         });
+    }
+
+    public static User getUserFromPreferences(SharedPreferences mPreferences) {
+        User u = new User();
+        u.setName(mPreferences.getString(KEY_USER_NAME, "Fulano"));
+        u.setEmail(mPreferences.getString(KEY_USER_EMAIL, "fulano@email.com"));
+        u.setProfilePic(mPreferences.getString(KEY_USER_PROFILEPIC, "https://cdn1.iconfinder.com/data/icons/social-shade-rounded-rects/512/anonymous-128.png"));
+        u.setCode(mPreferences.getString(KEY_USER_CODE, "[Not found]"));
+        u.setUid(mPreferences.getString(KEY_USER_UID, "sdfasdfasdfasdf"));
+        u.setPeriod(mPreferences.getInt(KEY_USER_PERIOD, 0));
+        return u;
     }
 
     @Exclude

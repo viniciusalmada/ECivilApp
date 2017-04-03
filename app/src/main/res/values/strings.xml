@@ -37,6 +37,9 @@
     <string name="syllabus">Ementas</string>
     <string name="monographies">Monografias</string>
     <string name="simec">SIMEC</string>
-    <string name="period">Períodos</string>
+    <string name="period">Períodos / Horário individual</string>
     <string name="hor_rios_indispon_veis">Não há horários pra hoje\n\nEnjoy! ;)</string>
+    <string name="_hi">H.I.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

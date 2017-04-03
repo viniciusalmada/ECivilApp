@@ -2,8 +2,10 @@ package br.com.viniciusalmada.civilapp;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -52,6 +54,13 @@ import br.com.viniciusalmada.civilapp.domains.User;
 import br.com.viniciusalmada.civilapp.interfaces.NetworkChangesImpl;
 import br.com.viniciusalmada.civilapp.utils.NetworkStateReceiver;
 
+import static br.com.viniciusalmada.civilapp.domains.User.KEY_USER_CODE;
+import static br.com.viniciusalmada.civilapp.domains.User.KEY_USER_EMAIL;
+import static br.com.viniciusalmada.civilapp.domains.User.KEY_USER_NAME;
+import static br.com.viniciusalmada.civilapp.domains.User.KEY_USER_PERIOD;
+import static br.com.viniciusalmada.civilapp.domains.User.KEY_USER_PROFILEPIC;
+import static br.com.viniciusalmada.civilapp.domains.User.KEY_USER_UID;
+
 /**
  * Created by vinicius-almada on 16/03/17.
  */
@@ -59,7 +68,10 @@ import br.com.viniciusalmada.civilapp.utils.NetworkStateReceiver;
 public class LoginActivity extends CommonActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener, NetworkChangesImpl {
     public static final String TAG = "LoginActivity";
     public static final String KEY_USER_PARCELABLE = "KEY_USER_PARCELABLE";
+    public static final String PREFERENCES = "PREFERENCES";
+    public static final String KEY_BOOLEAN_IS_LOGGED = "KEY_BOOLEAN_IS_LOGGED";
     private static final int RC_SIGN_IN = 9001;
+    private SharedPreferences mPreferences;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -70,11 +82,23 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
     private NetworkStateReceiver networkStateReceiver;
 
+    public static void setUserOnSharedPreferences(Context context, User user) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(PREFERENCES, MODE_PRIVATE).edit();
+        editor.putString(KEY_USER_NAME, user.getName());
+        editor.putString(KEY_USER_EMAIL, user.getEmail());
+        editor.putString(KEY_USER_PROFILEPIC, user.getProfilePic());
+        editor.putString(KEY_USER_CODE, user.getCode());
+        editor.putString(KEY_USER_UID, user.getUid());
+        editor.putInt(KEY_USER_PERIOD, user.getPeriod());
+        editor.putBoolean(KEY_BOOLEAN_IS_LOGGED, true);
+        editor.apply();
+    }
+
     @Override
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
         setContentView(R.layout.activity_login);
-
+        initSharedPreferences();
         initViews();
 
         IntentFilter it = new IntentFilter();
@@ -121,6 +145,16 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(networkStateReceiver);
+    }
+
+    private void initSharedPreferences() {
+        mPreferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
+        boolean isLogged = mPreferences.getBoolean(KEY_BOOLEAN_IS_LOGGED, false);
+        if (isLogged) {
+            User user;
+            user = User.getUserFromPreferences(mPreferences);
+            confIntent(HomeActivity.class, user, true);
+        }
     }
 
     @Override
@@ -195,13 +229,10 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                             String code = dataSnapshot.child(user.getUid()).child("code").getValue(String.class);
                             if (code != null) {
                                 User u = dataSnapshot.child(user.getUid()).getValue(User.class);
+                                setUserOnSharedPreferences(getBaseContext(), u);
                                 confIntent(HomeActivity.class, u, true);
                             } else {
-                                User u = new User();
-                                u.setName(user.getDisplayName());
-                                u.setEmail(user.getEmail());
-                                u.setProfilePic(String.valueOf(user.getPhotoUrl()));
-                                u.setUid(user.getUid());
+                                User u = confUser(user);
                                 User.writeOnFirebase(u);
                                 confIntent(DataInitialInputActivity.class, u, false);
                             }
@@ -282,16 +313,6 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    /*private void disableButtons() {
-        findViewById(R.id.bt_login_facebook).setEnabled(false);
-        findViewById(R.id.bt_login_google).setEnabled(false);
-    }
-
-    private void enableButtons() {
-        findViewById(R.id.bt_login_facebook).setEnabled(true);
-        findViewById(R.id.bt_login_google).setEnabled(true);
-    }*/
-
     private void showLoginButtons() {
         ((LinearLayout) btFacebook.getParent()).setVisibility(View.VISIBLE);
         pbLogin.setVisibility(View.GONE);
@@ -324,9 +345,16 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         Intent intent = new Intent(this, classDestiny);
         intent.putExtra(KEY_USER_PARCELABLE, u2Intent);
         startActivity(intent);
-        if (showToast)
-            showToast("Login successfully", true);
         finish();
+    }
+
+    private User confUser(FirebaseUser user) {
+        User u = new User();
+        u.setName(user.getDisplayName());
+        u.setEmail(user.getEmail());
+        u.setProfilePic(String.valueOf(user.getPhotoUrl()));
+        u.setUid(user.getUid());
+        return u;
     }
 
     @Override

@@ -5,61 +5,6 @@
                 android:layout_height="wrap_content"
                 android:background="#eee"
                 android:orientation="vertical">
-    <!--
-
-        <TextView
-            android:id="@+id/tv_subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_prof"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/tv_time"
-            android:layout_toRightOf="@+id/tv_time"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="left|center"
-            android:maxLines="2"
-            android:minLines="2"
-            android:paddingRight="@dimen/common_8"
-            android:text="TextView"
-            android:textColor="#212121"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Introdução ao Método dos Elementos Finitos" />
-
-        <TextView
-            android:id="@+id/tv_prof"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_time"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:fontFamily="sans-serif-smallcaps"
-            android:gravity="end"
-            android:paddingRight="@dimen/common_8"
-            android:text="TextView"
-            android:textAllCaps="false"
-            android:textColor="#505050"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:text="Conceição de Maria" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:fontFamily="sans-serif-smallcaps"
-            android:gravity="center"
-            android:paddingLeft="@dimen/common_8"
-            android:paddingRight="@dimen/common_8"
-            android:text="TextView"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:typeface="monospace"
-            tools:text="18:30\n19:19" />-->
 
     <LinearLayout
         android:layout_width="match_parent"

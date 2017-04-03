@@ -50,8 +50,10 @@ dependencies {
     compile 'com.github.ceryle:RadioRealButton:v2.0.4'
     compile 'com.daimajia.easing:library:2.0@aar'
     compile 'com.daimajia.androidanimations:library:2.2@aar'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 

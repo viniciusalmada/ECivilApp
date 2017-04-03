@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import br.com.viniciusalmada.civilapp.domains.User;
+import br.com.viniciusalmada.civilapp.utils.GeneralMethods;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -57,6 +58,12 @@ public class DataInitialInputActivity extends CommonActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        GeneralMethods.signOutFinish(this, LoginActivity.class);
+        finish();
     }
 
     @Override

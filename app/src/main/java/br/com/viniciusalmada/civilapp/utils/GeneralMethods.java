@@ -2,6 +2,7 @@ package br.com.viniciusalmada.civilapp.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
+import br.com.viniciusalmada.civilapp.LoginActivity;
 import br.com.viniciusalmada.civilapp.domains.Syllabus;
 
 /**
@@ -19,9 +21,10 @@ import br.com.viniciusalmada.civilapp.domains.Syllabus;
 public abstract class GeneralMethods {
     public static void signOutFinish(Context context, Class<? extends AppCompatActivity> destiny) {
         FirebaseAuth.getInstance().signOut();
+        SharedPreferences.Editor editor = context.getSharedPreferences(LoginActivity.PREFERENCES, Context.MODE_PRIVATE).edit();
+        editor.putBoolean(LoginActivity.KEY_BOOLEAN_IS_LOGGED, false).apply();
         Intent i = new Intent(context, destiny);
         context.startActivity(i);
-        ((AppCompatActivity) context).finish();
     }
 
     public static boolean isConnected(Context context) {

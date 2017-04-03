@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -29,10 +31,11 @@ import br.com.viniciusalmada.civilapp.R;
 import br.com.viniciusalmada.civilapp.adapters.TimeTableAdapter;
 import br.com.viniciusalmada.civilapp.domains.TimeTable;
 import br.com.viniciusalmada.civilapp.domains.User;
+import br.com.viniciusalmada.civilapp.interfaces.OnClickTimeTableListenerImpl;
 import co.ceryle.radiorealbutton.library.RadioRealButton;
 import co.ceryle.radiorealbutton.library.RadioRealButtonGroup;
 
-public class TimetableFragment extends Fragment implements RadioRealButtonGroup.OnClickedButtonListener {
+public class TimetableFragment extends Fragment implements RadioRealButtonGroup.OnClickedButtonListener, OnClickTimeTableListenerImpl {
 
     public static final String TAG = "TimetableFrag";
 
@@ -107,25 +110,35 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
     private void initRVTimeTable() {
         final RecyclerView rvTimeTable = (RecyclerView) rootView.findViewById(R.id.rv);
 
-        DatabaseReference timeRef = FirebaseDatabase.getInstance().getReference().child(TimeTable.DR_TIMETABLE).child("Y2017_1");
+        DatabaseReference timeRef = FirebaseDatabase.getInstance().getReference().child(TimeTable.DR_TIMETABLE);
         timeRef.keepSynced(true);
         timeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "onDataChange: P=" + mPeriod + " D=" + mDay + " size=" + dataSnapshot.getChildrenCount());
                 GenericTypeIndicator<List<TimeTable>> t = new GenericTypeIndicator<List<TimeTable>>() {
                 };
-                List<TimeTable> listTimeTables = dataSnapshot.getValue(t);
-                if (listTimeTables != null) {
-                    List<TimeTable.TimeLine> timeLines = getLinesFromTimeTable(listTimeTables);
+                User uLogged = ((HomeActivity) getActivity()).getUserLogged();
+                List<TimeTable> listTimeTablesGen = dataSnapshot.child("Y2017_1").getValue(t);
+                List<TimeTable> listTimeTablesUser;
+
+                if (dataSnapshot.child(uLogged.getUid()).hasChildren())
+                    listTimeTablesUser = dataSnapshot.child(uLogged.getUid()).getValue(t);
+                else
+                    listTimeTablesUser = new ArrayList<>();
+
+                List<TimeTable> listComplete = addLists(listTimeTablesGen, listTimeTablesUser);
+                if (listComplete != null) {
+                    List<TimeTable.TimeLine> timeLines = getLinesFromTimeTable(listComplete);
                     if (timeLines.size() != 0) {
                         if (!rvIsVisible()) showRecyclerView();
-                        TimeTableAdapter adapter = new TimeTableAdapter(getActivity(), timeLines);
+                        TimeTableAdapter adapter = new TimeTableAdapter(getActivity(), timeLines, TimetableFragment.this);
                         rvTimeTable.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                         rvTimeTable.setAdapter(adapter);
                     } else {
                         showEmptyView();
                     }
+                } else {
+                    showEmptyView();
                 }
             }
 
@@ -134,6 +147,18 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
 
             }
         });
+    }
+
+    @SafeVarargs
+    private final List<TimeTable> addLists(List<TimeTable>... lists) {
+        List<TimeTable> listComplete = new ArrayList<>();
+        for (List<TimeTable> l : lists) {
+            for (TimeTable tt : l) {
+                listComplete.add(tt);
+                Log.d(TAG, "addLists: tt" + tt.getName());
+            }
+        }
+        return listComplete;
     }
 
     private void showEmptyView() {
@@ -168,13 +193,13 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
                         String prof = tt.getProf();
                         String time = TimeTable.getStringTimetable(init.get(i), 49);
                         String code = tt.getCode();
+                        int period = tt.getPeriod();
                         int timeinit = init.get(i);
-                        timeLines.add(new TimeTable.TimeLine(sub, prof, time, code, timeinit));
+                        timeLines.add(new TimeTable.TimeLine(sub, prof, time, code, period, timeinit));
                     }
                 }
             }
         }
-
         return timeLines;
     }
 
@@ -214,8 +239,16 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
             case R.id.rb_p5:
                 mPeriod = 9;
                 break;
+            case R.id.rb_hi:
+                mPeriod = 11;
+                break;
         }
         Log.d(TAG, "onClick: D=" + mDay + " P=" + mPeriod);
         initRVTimeTable();
+    }
+
+    @Override
+    public void onClickTimeTable(View view) {
+        Toast.makeText(getActivity(), "click: " + ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
     }
 }

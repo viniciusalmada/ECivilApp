@@ -128,7 +128,7 @@ public class TimeTable implements Parcelable {
         this.year = year;
     }
 
-    public int getPeriod() {
+    public Integer getPeriod() {
         return period;
     }
 
@@ -165,9 +165,10 @@ public class TimeTable implements Parcelable {
         private String professor;
         private String time;
         private String code;
+        private int period;
         private int timeinit;
 
-        public TimeLine(String subject, String professor, String time, String code, int timeinit) {
+        public TimeLine(String subject, String professor, String time, String code, int period, int timeinit) {
             this.subject = subject;
             this.professor = professor;
             this.time = time;
@@ -191,8 +192,25 @@ public class TimeTable implements Parcelable {
             return code;
         }
 
+        public int getPeriod() {
+            return period;
+        }
+
         public Integer getTimeinit() {
             return timeinit;
         }
     }
+
+    /*public static class TimeTableUser extends TimeTable {
+        private boolean isSelected;
+        private String name;
+        private String prof;
+        private String code;
+        private List<Integer> timeinit;
+        private int year;
+        private int period;
+        private List<Integer> day;
+
+
+    }*/
 }

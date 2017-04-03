@@ -17,6 +17,7 @@ import java.util.List;
 
 import br.com.viniciusalmada.civilapp.R;
 import br.com.viniciusalmada.civilapp.domains.TimeTable;
+import br.com.viniciusalmada.civilapp.interfaces.OnClickTimeTableListenerImpl;
 
 /**
  * Created by vinicius-almada on 24/03/17.
@@ -25,8 +26,9 @@ import br.com.viniciusalmada.civilapp.domains.TimeTable;
 public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.VH> {
     private Context context;
     private List<TimeTable.TimeLine> timeLines;
+    private OnClickTimeTableListenerImpl onClickTimeTableListener;
 
-    public TimeTableAdapter(Context context, List<TimeTable.TimeLine> timeLines) {
+    public TimeTableAdapter(Context context, List<TimeTable.TimeLine> timeLines, OnClickTimeTableListenerImpl onClickTimeTableListener) {
         this.context = context;
         Collections.sort(timeLines, new Comparator<TimeTable.TimeLine>() {
             @Override
@@ -35,6 +37,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.VH> 
             }
         });
         this.timeLines = timeLines;
+        this.onClickTimeTableListener = onClickTimeTableListener;
     }
 
     @Override
@@ -58,6 +61,12 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.VH> 
                     .duration(800)
                     .playOn(holder.itemView);
         }
+       /* holder.tvSubject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickTimeTableListener.onClickTimeTable(v);
+            }
+        });*/
     }
 
     @Override

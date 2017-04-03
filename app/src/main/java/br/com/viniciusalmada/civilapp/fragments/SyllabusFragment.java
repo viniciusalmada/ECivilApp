@@ -64,6 +64,11 @@ public class SyllabusFragment extends Fragment {
         initSyllabusList();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void initViews() {
         TextView tvSyllabus = (TextView) rootView.findViewById(R.id.tv_syllabus_in);
         TextView tvObjectives = (TextView) rootView.findViewById(R.id.tv_objectives_in);
@@ -87,6 +92,7 @@ public class SyllabusFragment extends Fragment {
 
     private void initSyllabusList() {
         DatabaseReference syllabusRef = FirebaseDatabase.getInstance().getReference().child(Syllabus.DR_SYLLABUS);
+        syllabusRef.keepSynced(true);
         syllabusRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -115,14 +121,13 @@ public class SyllabusFragment extends Fragment {
         ArrayAdapter<CharSequence> adapterPeriods = ArrayAdapter.createFromResource(getActivity(), R.array.mock_periods, R.layout.item_spinner);
         adapterPeriods.setDropDownViewResource(R.layout.item_spinner_dropdown);
         spPeriods.setAdapter(adapterPeriods);
+        spPeriods.setOnItemSelectedListener(onSpinnerPeriodClick());
 
         confSubjectsSpinner(1);
-        spPeriods.setOnItemSelectedListener(onSpinnerPeriodClick());
     }
 
     private void confSubjectsSpinner(int period) {
-        List<Syllabus> syllabuses = new ArrayList<>();
-        syllabuses = getmSyllabusListByPeriod(period);
+        List<Syllabus> syllabuses = getmSyllabusListByPeriod(period);
         String[] namesSyllabus = GeneralMethods.getNameFromList(syllabuses);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.item_spinner, namesSyllabus);
         adapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
