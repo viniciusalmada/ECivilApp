@@ -27,9 +27,9 @@ import com.squareup.picasso.Picasso;
 
 import br.com.viniciusalmada.civilapp.domains.User;
 import br.com.viniciusalmada.civilapp.fragments.NewsFragment;
+import br.com.viniciusalmada.civilapp.fragments.ScheduleFragment;
 import br.com.viniciusalmada.civilapp.fragments.SimecFragment;
 import br.com.viniciusalmada.civilapp.fragments.SyllabusFragment;
-import br.com.viniciusalmada.civilapp.fragments.TimetableFragment;
 import br.com.viniciusalmada.civilapp.utils.GeneralMethods;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -187,7 +187,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                 break;
             case R.id.drawer_individual:
-                Intent intent = new Intent(this, IndividualTimetableActivity.class);
+                Intent intent = new Intent(this, IndividualScheduleActivity.class);
                 intent.putExtra(KEY_USER_PARCELABLE, userLogged);
                 startActivity(intent);
         }
@@ -245,7 +245,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             } else if (position == 1) {
                 return new NewsFragment();
             } else if (position == 2) {
-                return new TimetableFragment();
+                return new ScheduleFragment();
             } else if (position == 3) {
                 return new SyllabusFragment();
             } else {

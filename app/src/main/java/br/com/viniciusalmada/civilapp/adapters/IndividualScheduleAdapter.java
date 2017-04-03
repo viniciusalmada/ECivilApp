@@ -13,22 +13,22 @@ import java.util.Comparator;
 import java.util.List;
 
 import br.com.viniciusalmada.civilapp.R;
-import br.com.viniciusalmada.civilapp.domains.TimeTable;
+import br.com.viniciusalmada.civilapp.domains.Schedule;
 
 /**
  * Created by vinicius-almada on 02/04/17.
  */
 
-public class IndividualTimetableAdapter extends RecyclerView.Adapter<IndividualTimetableAdapter.VH> {
+public class IndividualScheduleAdapter extends RecyclerView.Adapter<IndividualScheduleAdapter.VH> {
     private Context context;
-    private List<TimeTable> listGen;
+    private List<Schedule> listGen;
     private boolean[] saveds;
 
-    public IndividualTimetableAdapter(Context context, List<TimeTable> list, boolean[] booleen) {
+    public IndividualScheduleAdapter(Context context, List<Schedule> list, boolean[] booleen) {
         this.context = context;
-        Collections.sort(list, new Comparator<TimeTable>() {
+        Collections.sort(list, new Comparator<Schedule>() {
             @Override
-            public int compare(TimeTable o1, TimeTable o2) {
+            public int compare(Schedule o1, Schedule o2) {
                 return o1.getPeriod().compareTo(o2.getPeriod());
             }
         });
@@ -37,13 +37,13 @@ public class IndividualTimetableAdapter extends RecyclerView.Adapter<IndividualT
     }
 
     @Override
-    public IndividualTimetableAdapter.VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.item_individual_timetables, parent, false);
+    public IndividualScheduleAdapter.VH onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.item_individual_schedule, parent, false);
         return new VH(view);
     }
 
     @Override
-    public void onBindViewHolder(final IndividualTimetableAdapter.VH holder, int position) {
+    public void onBindViewHolder(final IndividualScheduleAdapter.VH holder, int position) {
         holder.aSwitch.setText(listGen.get(position).getName());
         holder.aSwitch.setChecked(saveds[position]);
 

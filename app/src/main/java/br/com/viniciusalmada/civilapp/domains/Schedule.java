@@ -3,23 +3,28 @@ package br.com.viniciusalmada.civilapp.domains;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by vinicius-almada on 23/03/17.
  */
 
-public class TimeTable implements Parcelable {
-    public static final String DR_TIMETABLE = "timetables";
-    public static final Creator<TimeTable> CREATOR = new Creator<TimeTable>() {
+@IgnoreExtraProperties
+public class Schedule implements Parcelable {
+    public static final String DR_SCHEDULE = "timetables";
+    public static final Creator<Schedule> CREATOR = new Creator<Schedule>() {
         @Override
-        public TimeTable createFromParcel(Parcel source) {
-            return new TimeTable(source);
+        public Schedule createFromParcel(Parcel source) {
+            return new Schedule(source);
         }
 
         @Override
-        public TimeTable[] newArray(int size) {
-            return new TimeTable[size];
+        public Schedule[] newArray(int size) {
+            return new Schedule[size];
         }
     };
 
@@ -31,10 +36,10 @@ public class TimeTable implements Parcelable {
     private int period;
     private List<Integer> day;
 
-    public TimeTable() {
+    public Schedule() {
     }
 
-    protected TimeTable(Parcel in) {
+    protected Schedule(Parcel in) {
         name = in.readString();
         prof = in.readString();
         code = in.readString();
@@ -44,6 +49,7 @@ public class TimeTable implements Parcelable {
         in.readList(day, List.class.getClassLoader());
     }
 
+    @Exclude
     public static String getStringTimetable(int timeInit, int duration) {
         int iH = timeInit / 100;
         int iM = timeInit - (timeInit / 100 * 100);
@@ -86,6 +92,15 @@ public class TimeTable implements Parcelable {
         }
 
         return siH + ":" + siM + "\n" + sfH + ":" + sfM;
+    }
+
+    @Exclude
+    public static List<DayTime> getDayTime(Schedule tt) {
+        List<DayTime> list = new ArrayList<>();
+        for (int i = 0; i < tt.getDay().size(); i++) {
+            list.add(new DayTime(tt.getDay().get(i), tt.getTimeinit().get(i)));
+        }
+        return list;
     }
 
     public String getName() {
@@ -201,16 +216,21 @@ public class TimeTable implements Parcelable {
         }
     }
 
-    /*public static class TimeTableUser extends TimeTable {
-        private boolean isSelected;
-        private String name;
-        private String prof;
-        private String code;
-        private List<Integer> timeinit;
-        private int year;
-        private int period;
-        private List<Integer> day;
+    public static class DayTime {
+        private int day;
+        private int time;
 
+        public DayTime(int day, int time) {
+            this.day = day;
+            this.time = time;
+        }
 
-    }*/
+        public int getDay() {
+            return day;
+        }
+
+        public int getTime() {
+            return time;
+        }
+    }
 }

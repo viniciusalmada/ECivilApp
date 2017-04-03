@@ -4,7 +4,6 @@ package br.com.viniciusalmada.civilapp.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,9 +96,8 @@ public class SyllabusFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> it = dataSnapshot.getChildren();
-                mSyllabusList = new ArrayList<Syllabus>();
+                mSyllabusList = new ArrayList<>();
                 for (DataSnapshot ds : it) {
-                    Log.d(TAG, "onDataChange: " + ds.toString());
                     mSyllabusList.add(ds.getValue(Syllabus.class));
                 }
 //                Toast.makeText(getActivity(), "Subjects: " + mSyllabusList.size(), Toast.LENGTH_SHORT).show();

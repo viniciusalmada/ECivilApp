@@ -40,7 +40,7 @@
             android:name=".DataInitialInputActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".IndividualTimetableActivity">
+        <activity android:name=".IndividualScheduleActivity">
         </activity>
 
         <receiver android:name=".NewAppWidget">

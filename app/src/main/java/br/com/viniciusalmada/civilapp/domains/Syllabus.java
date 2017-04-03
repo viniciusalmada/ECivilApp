@@ -2,7 +2,6 @@ package br.com.viniciusalmada.civilapp.domains;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.google.firebase.database.Exclude;
 
@@ -58,8 +57,6 @@ public class Syllabus implements Parcelable {
 
     @Exclude
     public static String getCodeFromList(List<Syllabus> syllabuses, List<String> codes) {
-        Log.d(TAG, "getCodeFromList: syllabuses=" + syllabuses.size());
-        Log.d(TAG, "getCodeFromList: code=" + (codes == null ? "null" : codes.size()));
 
         if (codes == null) {
             return "[Não há]";
@@ -67,10 +64,8 @@ public class Syllabus implements Parcelable {
         String resultOne = "";
         String resultTwo = "";
         if (codes.size() == 1) {
-            Log.d(TAG, "getCodeFromList: code(0)=" + codes.get(0));
             for (String c : codes) {
                 for (Syllabus s : syllabuses) {
-                    Log.d(TAG, "getCodeFromList: allcodes=" + s.getCode());
                     if (c.trim().equals(s.getCode().trim())) {
                         return s.getName();
                     }

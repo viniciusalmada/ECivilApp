@@ -32,7 +32,7 @@
 
                 <item
                     android:id="@+id/drawer_individual"
-                    android:icon="@drawable/ic_timetable"
+                    android:icon="@drawable/ic_schedule"
                     android:title="Horário Individual"/>
 
                 <item

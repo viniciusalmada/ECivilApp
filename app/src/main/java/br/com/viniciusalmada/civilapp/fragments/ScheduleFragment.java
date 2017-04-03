@@ -1,12 +1,15 @@
 package br.com.viniciusalmada.civilapp.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,34 +30,40 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.viniciusalmada.civilapp.HomeActivity;
+import br.com.viniciusalmada.civilapp.IndividualScheduleActivity;
+import br.com.viniciusalmada.civilapp.LoginActivity;
 import br.com.viniciusalmada.civilapp.R;
-import br.com.viniciusalmada.civilapp.adapters.TimeTableAdapter;
-import br.com.viniciusalmada.civilapp.domains.TimeTable;
+import br.com.viniciusalmada.civilapp.adapters.ScheduleAdapter;
+import br.com.viniciusalmada.civilapp.domains.Schedule;
 import br.com.viniciusalmada.civilapp.domains.User;
 import br.com.viniciusalmada.civilapp.interfaces.OnClickTimeTableListenerImpl;
 import co.ceryle.radiorealbutton.library.RadioRealButton;
 import co.ceryle.radiorealbutton.library.RadioRealButtonGroup;
 
-public class TimetableFragment extends Fragment implements RadioRealButtonGroup.OnClickedButtonListener, OnClickTimeTableListenerImpl {
+public class ScheduleFragment extends Fragment implements RadioRealButtonGroup.OnClickedButtonListener, OnClickTimeTableListenerImpl {
 
     public static final String TAG = "TimetableFrag";
+    public static final int DURATION_TIMETABLE = 49;
 
     private View rootView;
     private int mDay = 0;
     private int mPeriod = 1;
     private RadioRealButtonGroup mButtonGroupDays;
     private RadioRealButtonGroup mButtonGroupPeriods;
+    private List<Schedule> listComplete;
 
-    public TimetableFragment() {
+    public ScheduleFragment() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: ");
-        rootView = inflater.inflate(R.layout.fragment_timetable2, container, false);
+        rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+        setHasOptionsMenu(true);
         initDay();
         initPeriod();
+
+        initViews();
 
         return rootView;
     }
@@ -62,8 +71,11 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: ");
-        initViews();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -76,6 +88,21 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
         periodRef.child(uLogged.getUid()).updateChildren(map);
         uLogged.setPeriod(mPeriod);
         ((HomeActivity) getActivity()).setUserLogged(uLogged);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_schedules, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_individual_schedules) {
+            Intent intent = new Intent(getActivity(), IndividualScheduleActivity.class);
+            intent.putExtra(LoginActivity.KEY_USER_PARCELABLE, ((HomeActivity) getActivity()).getUserLogged());
+            getActivity().startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initDay() {
@@ -110,28 +137,27 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
     private void initRVTimeTable() {
         final RecyclerView rvTimeTable = (RecyclerView) rootView.findViewById(R.id.rv);
 
-        DatabaseReference timeRef = FirebaseDatabase.getInstance().getReference().child(TimeTable.DR_TIMETABLE);
-        timeRef.keepSynced(true);
+        DatabaseReference timeRef = FirebaseDatabase.getInstance().getReference().child(Schedule.DR_SCHEDULE);
         timeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<TimeTable>> t = new GenericTypeIndicator<List<TimeTable>>() {
+                GenericTypeIndicator<List<Schedule>> t = new GenericTypeIndicator<List<Schedule>>() {
                 };
                 User uLogged = ((HomeActivity) getActivity()).getUserLogged();
-                List<TimeTable> listTimeTablesGen = dataSnapshot.child("Y2017_1").getValue(t);
-                List<TimeTable> listTimeTablesUser;
+                List<Schedule> listTimeTablesGen = dataSnapshot.child("Y2017_1").getValue(t);
+                List<Schedule> listTimeTablesUser;
 
                 if (dataSnapshot.child(uLogged.getUid()).hasChildren())
                     listTimeTablesUser = dataSnapshot.child(uLogged.getUid()).getValue(t);
                 else
                     listTimeTablesUser = new ArrayList<>();
 
-                List<TimeTable> listComplete = addLists(listTimeTablesGen, listTimeTablesUser);
+                listComplete = addLists(listTimeTablesGen, listTimeTablesUser);
                 if (listComplete != null) {
-                    List<TimeTable.TimeLine> timeLines = getLinesFromTimeTable(listComplete);
+                    List<Schedule.TimeLine> timeLines = getLinesFromTimeTable(listComplete);
                     if (timeLines.size() != 0) {
                         if (!rvIsVisible()) showRecyclerView();
-                        TimeTableAdapter adapter = new TimeTableAdapter(getActivity(), timeLines, TimetableFragment.this);
+                        ScheduleAdapter adapter = new ScheduleAdapter(getActivity(), timeLines, ScheduleFragment.this);
                         rvTimeTable.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
                         rvTimeTable.setAdapter(adapter);
                     } else {
@@ -149,13 +175,29 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
         });
     }
 
+    private void setRVSchedule() {
+        final RecyclerView rvTimeTable = (RecyclerView) rootView.findViewById(R.id.rv);
+        if (listComplete != null) {
+            List<Schedule.TimeLine> timeLines = getLinesFromTimeTable(listComplete);
+            if (timeLines.size() != 0) {
+                if (!rvIsVisible()) showRecyclerView();
+                ScheduleAdapter adapter = new ScheduleAdapter(getActivity(), timeLines, ScheduleFragment.this);
+                rvTimeTable.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+                rvTimeTable.setAdapter(adapter);
+            } else {
+                showEmptyView();
+            }
+        } else {
+            showEmptyView();
+        }
+    }
+
     @SafeVarargs
-    private final List<TimeTable> addLists(List<TimeTable>... lists) {
-        List<TimeTable> listComplete = new ArrayList<>();
-        for (List<TimeTable> l : lists) {
-            for (TimeTable tt : l) {
+    private final List<Schedule> addLists(List<Schedule>... lists) {
+        List<Schedule> listComplete = new ArrayList<>();
+        for (List<Schedule> l : lists) {
+            for (Schedule tt : l) {
                 listComplete.add(tt);
-                Log.d(TAG, "addLists: tt" + tt.getName());
             }
         }
         return listComplete;
@@ -181,9 +223,9 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
         return rootView.findViewById(R.id.rv).getVisibility() == View.VISIBLE;
     }
 
-    private List<TimeTable.TimeLine> getLinesFromTimeTable(List<TimeTable> list) {
-        List<TimeTable.TimeLine> timeLines = new ArrayList<>();
-        for (TimeTable tt : list) {
+    private List<Schedule.TimeLine> getLinesFromTimeTable(List<Schedule> list) {
+        List<Schedule.TimeLine> timeLines = new ArrayList<>();
+        for (Schedule tt : list) {
             if (tt.getPeriod() == mPeriod) {
                 List<Integer> days = tt.getDay();
                 List<Integer> init = tt.getTimeinit();
@@ -191,11 +233,11 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
                     if (days.get(i) == mDay) {
                         String sub = tt.getName();
                         String prof = tt.getProf();
-                        String time = TimeTable.getStringTimetable(init.get(i), 49);
+                        String time = Schedule.getStringTimetable(init.get(i), DURATION_TIMETABLE);
                         String code = tt.getCode();
                         int period = tt.getPeriod();
                         int timeinit = init.get(i);
-                        timeLines.add(new TimeTable.TimeLine(sub, prof, time, code, period, timeinit));
+                        timeLines.add(new Schedule.TimeLine(sub, prof, time, code, period, timeinit));
                     }
                 }
             }
@@ -243,8 +285,7 @@ public class TimetableFragment extends Fragment implements RadioRealButtonGroup.
                 mPeriod = 11;
                 break;
         }
-        Log.d(TAG, "onClick: D=" + mDay + " P=" + mPeriod);
-        initRVTimeTable();
+        setRVSchedule();
     }
 
     @Override

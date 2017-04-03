@@ -16,23 +16,23 @@ import java.util.Comparator;
 import java.util.List;
 
 import br.com.viniciusalmada.civilapp.R;
-import br.com.viniciusalmada.civilapp.domains.TimeTable;
+import br.com.viniciusalmada.civilapp.domains.Schedule;
 import br.com.viniciusalmada.civilapp.interfaces.OnClickTimeTableListenerImpl;
 
 /**
  * Created by vinicius-almada on 24/03/17.
  */
 
-public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.VH> {
+public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.VH> {
     private Context context;
-    private List<TimeTable.TimeLine> timeLines;
+    private List<Schedule.TimeLine> timeLines;
     private OnClickTimeTableListenerImpl onClickTimeTableListener;
 
-    public TimeTableAdapter(Context context, List<TimeTable.TimeLine> timeLines, OnClickTimeTableListenerImpl onClickTimeTableListener) {
+    public ScheduleAdapter(Context context, List<Schedule.TimeLine> timeLines, OnClickTimeTableListenerImpl onClickTimeTableListener) {
         this.context = context;
-        Collections.sort(timeLines, new Comparator<TimeTable.TimeLine>() {
+        Collections.sort(timeLines, new Comparator<Schedule.TimeLine>() {
             @Override
-            public int compare(TimeTable.TimeLine o1, TimeTable.TimeLine o2) {
+            public int compare(Schedule.TimeLine o1, Schedule.TimeLine o2) {
                 return o1.getTimeinit().compareTo(o2.getTimeinit());
             }
         });
@@ -42,7 +42,7 @@ public class TimeTableAdapter extends RecyclerView.Adapter<TimeTableAdapter.VH> 
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_timetable, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_schedule, parent, false);
         return new VH(v);
     }
 
