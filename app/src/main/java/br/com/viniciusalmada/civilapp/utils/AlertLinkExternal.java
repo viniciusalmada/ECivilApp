@@ -30,6 +30,5 @@ public class AlertLinkExternal {
         alert.setMessage("Quer abrir o link \"" + url + "\" no browser externo?");
 
         alert.show();
-
     }
 }

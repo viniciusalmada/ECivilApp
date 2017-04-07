@@ -17,11 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -137,7 +135,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }*/
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home_activity2, menu);
@@ -161,7 +159,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
     @Override
@@ -248,6 +246,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 return new ScheduleFragment();
             } else if (position == 3) {
                 return new SyllabusFragment();
+            } else if (position == 4) {
+                return new MonographsFragment();
             } else {
                 return new Fragment();
             }

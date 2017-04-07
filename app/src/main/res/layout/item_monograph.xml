@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/common_8"
+    android:layout_marginLeft="@dimen/common_16"
+    android:layout_marginRight="@dimen/common_16"
+    android:layout_marginTop="@dimen/common_8"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/common_8"
+        android:paddingRight="@dimen/common_8">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginTop="@dimen/common_8"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#3b3b3b"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Análise das situações de riscos referente à proteção contra incêndios no IFMA - Campus Monte Castelo"/>
+
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="#3b3b3b"
+            android:textSize="18sp"
+            tools:text="Adriana Oliveira Lima"/>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+

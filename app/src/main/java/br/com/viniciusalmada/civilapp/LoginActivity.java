@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.daimajia.easing.Glider;
 import com.daimajia.easing.Skill;
@@ -100,13 +101,6 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
         setContentView(R.layout.activity_login);
         initSharedPreferences();
         initViews();
-
-        IntentFilter it = new IntentFilter();
-        it.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        it.addCategory(Intent.CATEGORY_DEFAULT);
-        networkStateReceiver = new NetworkStateReceiver(this);
-
-        registerReceiver(networkStateReceiver, it);
     }
 
     @Override
@@ -144,7 +138,11 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(networkStateReceiver);
+        try {
+            unregisterReceiver(networkStateReceiver);
+        } catch (IllegalArgumentException ignore) {
+
+        }
     }
 
     private void initSharedPreferences() {
@@ -154,6 +152,13 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
             User user;
             user = User.getUserFromPreferences(mPreferences);
             confIntent(HomeActivity.class, user, true);
+        } else {
+            IntentFilter it = new IntentFilter();
+            it.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            it.addCategory(Intent.CATEGORY_DEFAULT);
+            networkStateReceiver = new NetworkStateReceiver(this);
+
+            registerReceiver(networkStateReceiver, it);
         }
     }
 
@@ -261,6 +266,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                         public void onFailure(@NonNull Exception e) {
                             if (e instanceof FirebaseAuthUserCollisionException) {
                                 showToast("An acoount with this email already exists", true);
+                                showLoginButtons();
                             }
                         }
                     })
@@ -338,7 +344,10 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     private void showOffline() {
         ((LinearLayout) btFacebook.getParent()).setVisibility(View.GONE);
         pbLogin.setVisibility(View.GONE);
-        findViewById(R.id.bt_offline).setVisibility(View.VISIBLE);
+        Button btOffline = (Button) findViewById(R.id.bt_offline);
+        btOffline.setVisibility(View.VISIBLE);
+        btOffline.setOnClickListener(this);
+
     }
 
     private void confIntent(Class<? extends AppCompatActivity> classDestiny, User u2Intent, boolean showToast) {
@@ -369,6 +378,8 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                 Log.d(TAG, "onClick: " + "Google button clicked");
                 signInGoogle();
                 break;
+            case R.id.bt_offline:
+                Toast.makeText(this, "A versão offline sem necesidade de login está em desenvolvimento.\nPlease! Be patient.", Toast.LENGTH_LONG).show();
         }
     }
 
