@@ -177,7 +177,7 @@ public class SyllabusFragment extends Fragment {
 
     private void animateTransition(TextView... tvs) {
         for (TextView tv : tvs) {
-            YoYo.with(Techniques.FadeInLeft)
+            YoYo.with(Techniques.Wave)
                     .duration(500)
                     .playOn(tv);
         }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import br.com.viniciusalmada.civilapp.interfaces.GetterCalendar;
  * A simple {@link Fragment} subclass.
  */
 public class CalendarFragment extends Fragment implements GetterCalendar {
+    public static final String TAG = "CalendarFragment";
 
 
     private View rootView;
@@ -48,6 +50,7 @@ public class CalendarFragment extends Fragment implements GetterCalendar {
 
     @Override
     public void getCalendar(List<Calendar> list) {
+        Log.d(TAG, "getCalendar: " + list.get(0));
         initRecyclerView(list);
     }
 }

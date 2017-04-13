@@ -29,7 +29,7 @@ public class IndividualScheduleAdapter extends RecyclerView.Adapter<IndividualSc
         Collections.sort(list, new Comparator<Schedule>() {
             @Override
             public int compare(Schedule o1, Schedule o2) {
-                return o1.getPeriod().compareTo(o2.getPeriod());
+                return o1.getName().compareTo(o2.getName());
             }
         });
         this.listGen = list;

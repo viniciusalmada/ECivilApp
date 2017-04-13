@@ -44,14 +44,16 @@ public class CalendarMonthAdapter extends RecyclerView.Adapter<CalendarMonthAdap
     @Override
     public void onBindViewHolder(CalendarMonthAdapter.VH holder, int position) {
         String[] months = context.getResources().getStringArray(R.array.months);
-        holder.tvMonth.setText(months[monthsNumber.get(position)]);
+        holder.tvMonth.setText(months[monthsNumber.get(position) - 1]);
 
         CalendarDayAdapter adapter = new CalendarDayAdapter(context, getCalendarMonthList(monthsNumber.get(position)));
         LinearLayoutManager llm = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         holder.rvCalendar.setLayoutManager(llm);
         holder.rvCalendar.setAdapter(adapter);
 
-        holder.ibExpand.setOnClickListener(collapseView(holder.rvCalendar));
+        collapseAnyView(holder.rvCalendar);
+
+        holder.ibExpand.setOnClickListener(expandView(holder.rvCalendar));
     }
 
     @Override
@@ -73,7 +75,7 @@ public class CalendarMonthAdapter extends RecyclerView.Adapter<CalendarMonthAdap
         Collections.sort(list, new Comparator<Calendar>() {
             @Override
             public int compare(Calendar o1, Calendar o2) {
-                return o1.getInitPeriod().compareTo(o2.getInitPeriod());
+                return o1.getInit().compareTo(o2.getInit());
             }
         });
         return list;
@@ -114,6 +116,10 @@ public class CalendarMonthAdapter extends RecyclerView.Adapter<CalendarMonthAdap
                 iButton.setOnClickListener(collapseView(rv));
             }
         };
+    }
+
+    private void collapseAnyView(final View rv) {
+        ExpanderCollapserView.collapseView(rv);
     }
 
     public class VH extends RecyclerView.ViewHolder {

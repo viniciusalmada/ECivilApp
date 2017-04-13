@@ -1,9 +1,17 @@
 package br.com.viniciusalmada.civilapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +43,8 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        int endPeriod = calendarList.get(position).getEndPeriod();
-        int initPeriod = calendarList.get(position).getInitPeriod();
+        int endPeriod = calendarList.get(position).getEnd();
+        int initPeriod = calendarList.get(position).getInit();
 
         String day = "-";
 
@@ -81,7 +89,18 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
         }
         holder.tvText.setTextColor(colorTxt);
         holder.tvText.setBackgroundColor(colorBG);
-        holder.tvText.setText(calendarList.get(position).getText());
+
+        SpannableString text;
+        if (calendarList.get(position).getIsLink())
+            text = getImageLink(position);
+        else
+            text = new SpannableString(calendarList.get(position).getText());
+
+        holder.tvText.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.tvText.setText(text, TextView.BufferType.SPANNABLE);
+
+        if (holder.getAdapterPosition() == calendarList.size() - 1)
+            holder.itemView.findViewById(R.id.view).setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -92,6 +111,39 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    private SpannableString getImageLink(final int position) {
+        String text = calendarList.get(position).getText();
+        text += " ";
+
+        SpannableString textSpannable = new SpannableString(text);
+        int textSize = text.length();
+
+        Drawable img = ContextCompat.getDrawable(context, R.drawable.ic_open_link);
+        img.setBounds(0, 0, img.getIntrinsicWidth(), img.getIntrinsicHeight());
+        ImageSpan spanImg = new ImageSpan(img, ImageSpan.ALIGN_BASELINE);
+
+        textSpannable.setSpan(
+                spanImg,
+                textSize - 1,
+                textSize,
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(calendarList.get(position).getLink()));
+                context.startActivity(intent);
+            }
+        };
+        textSpannable.setSpan(
+                clickableSpan,
+                textSize - 1,
+                textSize,
+                Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+
+        return textSpannable;
     }
 
     public class VH extends RecyclerView.ViewHolder {

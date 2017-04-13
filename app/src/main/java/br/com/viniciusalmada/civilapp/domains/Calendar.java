@@ -27,8 +27,8 @@ public class Calendar {
     private static List<Calendar> list = new ArrayList<>();
     private String text;
     private int month;
-    private Integer initPeriod;
-    private int endPeriod;
+    private Integer init;
+    private int end;
     private int format;
     private boolean isLink;
     private String link;
@@ -63,19 +63,19 @@ public class Calendar {
         return month;
     }
 
-    public Integer getInitPeriod() {
-        return initPeriod;
+    public Integer getInit() {
+        return init;
     }
 
-    public int getEndPeriod() {
-        return endPeriod;
+    public int getEnd() {
+        return end;
     }
 
     public int getFormat() {
         return format;
     }
 
-    public boolean isLink() {
+    public boolean getIsLink() {
         return isLink;
     }
 

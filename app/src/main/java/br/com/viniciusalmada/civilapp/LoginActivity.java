@@ -111,10 +111,12 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Log.d(TAG, "onActivityResult: result=" + result.isSuccess());
             if (result.isSuccess()) {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
+                Log.d(TAG, "onActivityResult: " + result.getStatus().getStatusMessage());
                 showLoginButtons();
             }
         }
@@ -220,12 +222,14 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
     }
 
     private void initAuth() {
+        Log.d(TAG, "initAuth: called");
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 showProgress();
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
+                Log.d(TAG, "onAuthStateChanged: FUser=" + String.valueOf(user != null));
                 if (user != null) {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(User.DR_USERS);
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -245,7 +249,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
+                            Log.d(TAG, "onCancelled: " + databaseError.getMessage());
                         }
                     });
                 } else {
@@ -297,6 +301,7 @@ public class LoginActivity extends CommonActivity implements View.OnClickListene
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "onComplete: taskSuccess = " + task.isSuccessful());
                         if (!task.isSuccessful()) {
                             showToast("Authentication failed", true);
                         }

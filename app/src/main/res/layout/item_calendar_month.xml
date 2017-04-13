@@ -12,6 +12,7 @@
         android:layout_marginLeft="@dimen/common_16"
         android:layout_marginRight="@dimen/common_16"
         android:layout_marginTop="@dimen/common_8"
+        app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="10dp"
         app:cardPreventCornerOverlap="true">
 
@@ -36,7 +37,7 @@
                 android:layout_below="@id/tv_month"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Relação entre Meio Ambiente e o Saneamento. O conceito de Saneamento Básico. Serviços de atendimento do Saneamento Básico. Sistemas de Abastecimento de Água. Tecnologias no Esgotamento Sanitário. Gestão de Resíduos Sólidos. Controle dos Vetores. Legislação Ambiental."
-                android:theme="@style/TextViewAttrHeader"/>
+                />
 
             <ImageButton
                 android:id="@+id/bt_expand"

@@ -2,26 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_calendar_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:padding="@dimen/common_8"
-        android:text="21 a 30"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/tv_calendar_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="center"
-        android:padding="@dimen/common_8"
-        android:text="Início do loewm ipsum loerm ipsum lorem iopsum sksdmskadmaskdmadaskdm jsdjk askjdna asdjansd "
-        android:textSize="18sp"
-        android:typeface="normal"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_calendar_day"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center|start"
+            android:paddingBottom="@dimen/common_8"
+            android:paddingLeft="@dimen/common_8"
+            android:paddingRight="@dimen/common_8"
+            android:paddingTop="@dimen/common_8"
+            android:text="21 a 30"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_calendar_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start|top"
+            android:paddingBottom="@dimen/common_8"
+            android:paddingLeft="@dimen/common_8"
+            android:paddingRight="@dimen/common_8"
+            android:paddingTop="@dimen/common_8"
+            android:text="Início do loewm ipsum loerm ipsum lorem iopsum sksdmskadmaskdmadaskdm jsdjk askjdna asdjansd "
+            android:textSize="18sp"
+            android:typeface="normal"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#777"/>
 </LinearLayout>

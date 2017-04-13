@@ -41,7 +41,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     R.drawable.ic_news,
                     R.drawable.ic_clock,
                     R.drawable.ic_description,
-                    R.drawable.ic_school};
+                    R.drawable.ic_school,
+                    R.drawable.ic_calendar};
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -86,7 +87,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setHorizontalScrollBarEnabled(false);
         mTabLayout.setHorizontalFadingEdgeEnabled(true);
-//        setupTabIcons();
+        setupTabIcons();
 
     }
 
@@ -127,13 +128,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Picasso.with(this).load(user.getProfilePic()).into(ivProfile);
     }
 
-   /* private void setupTabIcons() {
+    private void setupTabIcons() {
         if (mTabLayout != null) {
             for (int i = 0; i < mTabLayout.getTabCount(); i++) {
                 mTabLayout.getTabAt(i).setIcon(TAB_ICONS[i]);
             }
         }
-    }*/
+    }
 
 
     /*@Override
@@ -269,7 +270,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
+            /*switch (position) {
                 case 0:
                     return getString(R.string.simec);
                 case 1:
@@ -284,8 +285,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     return getString(R.string.calendar);
                 default:
                     return "ANOTHER FRAGMENT";
-            }
-//           return null;
+            }*/
+            return null;
         }
     }
 }
