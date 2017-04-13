@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import br.com.viniciusalmada.civilapp.domains.User;
+import br.com.viniciusalmada.civilapp.fragments.CalendarFragment;
 import br.com.viniciusalmada.civilapp.fragments.NewsFragment;
 import br.com.viniciusalmada.civilapp.fragments.ScheduleFragment;
 import br.com.viniciusalmada.civilapp.fragments.SimecFragment;
@@ -180,6 +181,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_monograph:
                 mViewPager.setCurrentItem(4, true);
                 break;
+            case R.id.drawer_calendar:
+                mViewPager.setCurrentItem(5, true);
+                break;
             case R.id.drawer_signout:
                 GeneralMethods.signOutFinish(this, LoginActivity.class);
                 finish();
@@ -220,6 +224,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case 4:
                 navigationView.setCheckedItem(R.id.drawer_monograph);
                 break;
+            case 5:
+                navigationView.setCheckedItem(R.id.drawer_calendar);
         }
     }
 
@@ -248,6 +254,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 return new SyllabusFragment();
             } else if (position == 4) {
                 return new MonographsFragment();
+            } else if (position == 5) {
+                return new CalendarFragment();
             } else {
                 return new Fragment();
             }
@@ -256,7 +264,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 5;
+            return 6;
         }
 
         @Override
@@ -272,6 +280,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     return getString(R.string.syllabus);
                 case 4:
                     return getString(R.string.monographies);
+                case 5:
+                    return getString(R.string.calendar);
                 default:
                     return "ANOTHER FRAGMENT";
             }

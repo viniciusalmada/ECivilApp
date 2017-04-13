@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context="br.com.viniciusalmada.civilapp.fragments.CalendarFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_8"
+        android:layout_marginLeft="@dimen/common_16"
+        android:layout_marginRight="@dimen/common_16"
+        android:layout_marginTop="@dimen/common_8"
+        app:cardCornerRadius="10dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Janeiro"
+                android:theme="@style/TextViewNameCategories"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_month_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_month"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Relação entre Meio Ambiente e o Saneamento. O conceito de Saneamento Básico. Serviços de atendimento do Saneamento Básico. Sistemas de Abastecimento de Água. Tecnologias no Esgotamento Sanitário. Gestão de Resíduos Sólidos. Controle dos Vetores. Legislação Ambiental."
+                android:theme="@style/TextViewAttrHeader"/>
+
+            <ImageButton
+                android:id="@+id/bt_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/tv_month"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignTop="@id/tv_month"
+                android:layout_marginRight="@dimen/common_8"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_expand_more"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

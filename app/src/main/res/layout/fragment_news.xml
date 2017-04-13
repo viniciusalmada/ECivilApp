@@ -39,7 +39,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/slider_news_dynamics"
                 android:layout_marginBottom="@dimen/common_16"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -53,6 +53,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/iv_news_featured"
+                        android:fontFamily="sans-serif-condensed"
                         android:padding="@dimen/common_8"
                         android:textColor="#000"
                         android:textSize="18sp"

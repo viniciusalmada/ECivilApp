@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_calendar_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="@dimen/common_8"
+        android:text="21 a 30"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_calendar_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center"
+        android:padding="@dimen/common_8"
+        android:text="Início do loewm ipsum loerm ipsum lorem iopsum sksdmskadmaskdmadaskdm jsdjk askjdna asdjansd "
+        android:textSize="18sp"
+        android:typeface="normal"/>
+</LinearLayout>

@@ -86,4 +86,27 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
+    <!--Calendar Styles-->
+    <style name="CalendarTextNormal" parent="Theme.AppCompat">
+        <item name="android:textColor">#212121</item>
+    </style>
+
+    <style name="CalendarTextWarning" parent="Theme.AppCompat">
+        <item name="android:textColor">#d50000</item>
+    </style>
+
+    <style name="CalendarTextEvent" parent="Theme.AppCompat">
+        <item name="android:textColor">#03a9f4</item>
+    </style>
+
+    <style name="CalendarTextHoliday" parent="Theme.AppCompat">
+        <item name="android:textColor">#00c853</item>
+    </style>
+
+    <style name="CalendarTextGriffin" parent="Theme.AppCompat">
+        <item name="android:background">#ffea00</item>
+        <item name="android:textColor">#212121</item>
+    </style>
+
 </resources>
