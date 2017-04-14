@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:623044568254:android:952f8fd77de33cc2",
+        "mobilesdk_app_id": "1:623044568254:android:1324eb8f0e22a664",
         "android_client_info": {
-          "package_name": "br.com.viniciusalmada.civilapp"
+          "package_name": "br.almadaapps.civilapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "623044568254-otb3slrn2efu5rar84t690fbp6upc66l.apps.googleusercontent.com",
+          "client_id": "623044568254-ck0umhm40edjb7uun1ksnr68p9eqt411.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "br.com.viniciusalmada.civilapp",
-            "certificate_hash": "8985c960f52957d5571cebb09bcdfe3a0244287b"
+            "package_name": "br.almadaapps.civilapp",
+            "certificate_hash": "39d4b05a4b0d2cd6e76f1a29de453f61d6250f27"
           }
         },
         {
@@ -30,6 +30,9 @@
       "api_key": [
         {
           "current_key": "AIzaSyC__G-zydEztWbkpfB22196z6X1F644JLc"
+        },
+        {
+          "current_key": "AIzaSyAYmg5FSBXggtGt-y3KnMpKzt9eKlUy2b4"
         }
       ],
       "services": {
