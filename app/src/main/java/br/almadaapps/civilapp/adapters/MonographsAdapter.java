@@ -69,7 +69,7 @@ public class MonographsAdapter extends RecyclerView.Adapter<MonographsAdapter.VH
 
         @Override
         public void onClick(View v) {
-            AlertLinkExternal.openAlertDialog(monographList.get(getAdapterPosition()).getLink(), context);
+            AlertLinkExternal.openAlertDialog(monographList.get(getAdapterPosition()).getLink(), context, false);
         }
     }
 }

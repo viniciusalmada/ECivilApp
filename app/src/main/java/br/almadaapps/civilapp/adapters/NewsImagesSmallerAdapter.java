@@ -60,7 +60,7 @@ public class NewsImagesSmallerAdapter extends RecyclerView.Adapter<NewsImagesSma
 
         @Override
         public void onClick(View v) {
-            AlertLinkExternal.openAlertDialog(smallImagesList.get(getAdapterPosition()).getLink(), context);
+            AlertLinkExternal.openAlertDialog(smallImagesList.get(getAdapterPosition()).getLink(), context, true);
         }
     }
 }

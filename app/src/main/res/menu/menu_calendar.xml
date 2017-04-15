@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
-        android:id="@+id/action_individual_schedules"
-        android:icon="@drawable/ic_schedule"
-        android:title="Horário Individual"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_individual_schedules_dowload"
+        android:id="@+id/action_calendar_dowload"
         android:icon="@drawable/ic_download"
         android:title="Download"
         app:showAsAction="ifRoom"/>

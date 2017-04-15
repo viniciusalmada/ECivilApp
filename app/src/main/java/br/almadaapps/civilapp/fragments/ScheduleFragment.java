@@ -37,6 +37,7 @@ import br.almadaapps.civilapp.adapters.ScheduleAdapter;
 import br.almadaapps.civilapp.domains.Schedule;
 import br.almadaapps.civilapp.domains.User;
 import br.almadaapps.civilapp.interfaces.OnClickTimeTableListenerImpl;
+import br.almadaapps.civilapp.utils.AlertLinkExternal;
 import co.ceryle.radiorealbutton.library.RadioRealButton;
 import co.ceryle.radiorealbutton.library.RadioRealButtonGroup;
 
@@ -44,6 +45,7 @@ public class ScheduleFragment extends Fragment implements RadioRealButtonGroup.O
 
     public static final String TAG = "TimetableFrag";
     public static final int DURATION_TIMETABLE = 49;
+    public static final String LINK_SCHEDULES = "https://firebasestorage.googleapis.com/v0/b/ecivil-app.appspot.com/o/Hor%C3%A1rios%20EC%202017.1.PDF?alt=media&token=c42747b8-ff67-43cd-af92-29e028b9d049";
 
     private View rootView;
     private int mDay = 0;
@@ -101,6 +103,8 @@ public class ScheduleFragment extends Fragment implements RadioRealButtonGroup.O
             Intent intent = new Intent(getActivity(), IndividualScheduleActivity.class);
             intent.putExtra(LoginActivity.KEY_USER_PARCELABLE, ((HomeActivity) getActivity()).getUserLogged());
             getActivity().startActivity(intent);
+        } else if (item.getItemId() == R.id.action_individual_schedules_dowload) {
+            AlertLinkExternal.openAlertDialog(LINK_SCHEDULES, getActivity(), false);
         }
         return super.onOptionsItemSelected(item);
     }

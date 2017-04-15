@@ -214,14 +214,14 @@ public class NewsFragment extends Fragment implements BaseSliderView.OnSliderCli
     @Override
     public void onSliderClick(BaseSliderView slider) {
         String url = slider.getBundle().getString("link");
-        AlertLinkExternal.openAlertDialog(url, getActivity());
+        AlertLinkExternal.openAlertDialog(url, getActivity(), true);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.iv_news_featured || v.getId() == R.id.tv_title_news_featured || v.getId() == R.id.cv_news_featured) {
             String url = HandlerJsoup.getNewsFeatured(doc).getLink();
-            AlertLinkExternal.openAlertDialog(url, getActivity());
+            AlertLinkExternal.openAlertDialog(url, getActivity(), true);
         }
     }
 

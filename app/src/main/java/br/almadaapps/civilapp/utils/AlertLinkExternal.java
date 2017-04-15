@@ -11,7 +11,7 @@ import android.support.v7.app.AlertDialog;
  */
 
 public class AlertLinkExternal {
-    public static void openAlertDialog(final String url, final Context context) {
+    public static void openAlertDialog(final String url, final Context context, boolean showLink) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final AlertDialog alert = builder.create();
         alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
@@ -26,8 +26,11 @@ public class AlertLinkExternal {
                 alert.dismiss();
             }
         });
-        alert.setTitle("Abrir link externo");
-        alert.setMessage("Quer abrir o link \"" + url + "\" no browser externo?");
+        alert.setTitle("Abrir link");
+        if (showLink)
+            alert.setMessage("Quer abrir o link \"" + url + "\" no browser externo?");
+        else
+            alert.setMessage("Quer abrir o link no browser externo?");
 
         alert.show();
     }

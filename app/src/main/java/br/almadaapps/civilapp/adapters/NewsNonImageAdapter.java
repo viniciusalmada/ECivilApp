@@ -57,7 +57,7 @@ public class NewsNonImageAdapter extends RecyclerView.Adapter<NewsNonImageAdapte
 
         @Override
         public void onClick(View v) {
-            AlertLinkExternal.openAlertDialog(nonImageList.get(getAdapterPosition()).getLink(), context);
+            AlertLinkExternal.openAlertDialog(nonImageList.get(getAdapterPosition()).getLink(), context, true);
         }
     }
 }

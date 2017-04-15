@@ -30,7 +30,8 @@
     </style>
 
     <style name="ButtonCustomSimec" parent="ThemeOverlay.AppCompat">
-        <item name="colorButtonNormal">#cc222222</item>
+        <item name="colorButtonNormal">#f0222222</item>
+        <item name="android:padding">@dimen/common_8</item>
     </style>
 
     <style name="EditTexts" parent="ThemeOverlay.AppCompat">
@@ -41,9 +42,9 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="TextViewNameHeader" parent="Theme.AppCompat">
         <item name="android:paddingTop">@dimen/common_8</item>
@@ -107,6 +108,60 @@
     <style name="CalendarTextGriffin" parent="Theme.AppCompat">
         <item name="android:background">#ffea00</item>
         <item name="android:textColor">#212121</item>
+    </style>
+
+    <style name="TextViewTitlePalestra" parent="Theme.AppCompat">
+        <item name="android:paddingLeft">@dimen/common_8</item>
+        <item name="android:paddingRight">@dimen/common_8</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:background">#c8000000</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">@dimen/common_8</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextViewContentPalestra" parent="Theme.AppCompat">
+        <item name="android:paddingLeft">@dimen/common_8</item>
+        <item name="android:paddingRight">@dimen/common_8</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:bufferType">spannable</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextViewTitleMinicurso" parent="Theme.AppCompat">
+        <item name="android:paddingLeft">@dimen/common_8</item>
+        <item name="android:paddingRight">@dimen/common_8</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:background">#c8000000</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">@dimen/common_8</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextViewContentMinicurso" parent="Theme.AppCompat">
+        <item name="android:paddingLeft">@dimen/common_8</item>
+        <item name="android:paddingRight">@dimen/common_8</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:bufferType">spannable</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>
