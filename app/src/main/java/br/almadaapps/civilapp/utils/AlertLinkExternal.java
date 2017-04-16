@@ -34,4 +34,64 @@ public class AlertLinkExternal {
 
         alert.show();
     }
+
+    public static void openAlertDialog(final String text, final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog alert = builder.create();
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alert.dismiss();
+            }
+        });
+        alert.setTitle("III SIMPÓSIO MARANHENSE DE ENGENHARIA CIVIL");
+        alert.setMessage(text);
+
+        alert.show();
+    }
+
+    /*public static void openContactDialog(final Context context, final OnContactClickListener onContactClickListener) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.item_contact_list, null, false);
+        LinearLayout email = (LinearLayout) view.findViewById(R.id.ll_email);
+        LinearLayout call = (LinearLayout) view.findViewById(R.id.ll_call);
+        LinearLayout facebook = (LinearLayout) view.findViewById(R.id.ll_facebook);
+        LinearLayout instagram = (LinearLayout) view.findViewById(R.id.ll_instagram);
+        ImageView iv = (ImageView) view.findViewById(R.id.ic_email);
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "id:" + v.getId(), Toast.LENGTH_SHORT).show();
+                onContactClickListener.onContactClick(v.getId());
+            }
+        };
+
+        email.setOnClickListener(onClickListener);
+        call.setOnClickListener(onClickListener);
+        facebook.setOnClickListener(onClickListener);
+        instagram.setOnClickListener(onClickListener);
+        iv.setOnClickListener(onClickListener);
+
+        builder.setView(R.layout.item_contact_list);
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(context, "hueueh", Toast.LENGTH_SHORT).show();
+                builder.create().dismiss();
+            }
+        });
+        builder.setTitle("CONTATO");
+        builder.show();
+        *//*final AlertDialog alert = builder.create();
+        alert.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alert.dismiss();
+            }
+        });
+        alert.setTitle("CONTATO");
+//        alert.setContentView();
+        alert.show();*//*
+    }*/
 }

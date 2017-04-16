@@ -31,7 +31,7 @@
 
     <style name="ButtonCustomSimec" parent="ThemeOverlay.AppCompat">
         <item name="colorButtonNormal">#f0222222</item>
-        <item name="android:padding">@dimen/common_8</item>
+        <item name="android:padding">@dimen/common_16</item>
     </style>
 
     <style name="EditTexts" parent="ThemeOverlay.AppCompat">

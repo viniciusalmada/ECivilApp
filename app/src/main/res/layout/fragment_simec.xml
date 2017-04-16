@@ -71,8 +71,10 @@
             android:background="#aa000000"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
+            android:paddingBottom="@dimen/common_16"
             android:paddingLeft="@dimen/common_16"
             android:paddingRight="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
             android:text='"Planejamento e Infraestrutura dos modais de Transportes."'
             android:textAllCaps="false"
             android:textColor="#fff"
@@ -104,12 +106,12 @@
             android:background="#aa000000"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/common_8"
-            android:paddingTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
             android:text="Palestras"
             android:textAllCaps="true"
             android:textColor="#fff"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
 
         <android.support.v7.widget.CardView
@@ -306,15 +308,16 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_16"
             android:background="#aa000000"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/common_8"
-            android:paddingTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
             android:text="MINICURSOS"
             android:textAllCaps="true"
             android:textColor="#fff"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
 
         <android.support.v7.widget.CardView
