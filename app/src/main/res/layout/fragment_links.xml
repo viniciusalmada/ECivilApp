@@ -1,0 +1,152 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="br.almadaapps.civilapp.fragments.LinksFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/bt_ifma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="IFMA"
+            android:theme="@style/ButtonLinks"/>
+
+        <Button
+            android:id="@+id/bt_qacad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="QACADÊMICO"
+            android:theme="@style/ButtonLinks"/>
+
+        <Button
+            android:id="@+id/bt_library"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="BIBLIOTECA"
+            android:theme="@style/ButtonLinks"/>
+
+        <Button
+            android:id="@+id/bt_suap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="SUAP"
+            android:theme="@style/ButtonLinks"/>
+
+        <Button
+            android:id="@+id/bt_drive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="GOOGLE DRIVE GERAL"
+            android:theme="@style/ButtonLinks"/>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginTop="@dimen/common_16"
+            android:background="#c8000000"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:paddingBottom="@dimen/common_8"
+            android:paddingLeft="@dimen/common_16"
+            android:paddingRight="@dimen/common_16"
+            android:paddingTop="@dimen/common_8"
+            android:text="Downloads úteis"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#ddd"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/bt_schedules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="HORÁRIOS DE AULA"
+            android:theme="@style/ButtonLinks"/>
+
+        <Button
+            android:id="@+id/bt_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="CALENDÁRIO ACADÊMICO"
+            android:theme="@style/ButtonLinks"/>
+
+        <Button
+            android:id="@+id/bt_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="PROJETO PEDAGÓGICO"
+            android:theme="@style/ButtonLinks"/>
+
+        <Button
+            android:id="@+id/bt_fluxogram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_8"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_8"
+            android:paddingBottom="@dimen/common_16"
+            android:paddingTop="@dimen/common_16"
+            android:text="FLUXOGRAMA DE DISCIPLINAS"
+            android:theme="@style/ButtonLinks"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

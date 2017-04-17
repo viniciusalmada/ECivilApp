@@ -1,6 +1,7 @@
 package br.almadaapps.civilapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,6 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import br.almadaapps.civilapp.domains.User;
 import br.almadaapps.civilapp.fragments.CalendarFragment;
+import br.almadaapps.civilapp.fragments.LinksFragment;
 import br.almadaapps.civilapp.fragments.MonographsFragment;
 import br.almadaapps.civilapp.fragments.NewsFragment;
 import br.almadaapps.civilapp.fragments.ScheduleFragment;
@@ -184,6 +187,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.drawer_calendar:
                 mViewPager.setCurrentItem(5, true);
                 break;
+            case R.id.drawer_links:
+                mViewPager.setCurrentItem(6, true);
+                break;
             case R.id.drawer_signout:
                 GeneralMethods.signOutFinish(this, LoginActivity.class);
                 finish();
@@ -192,6 +198,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(this, IndividualScheduleActivity.class);
                 intent.putExtra(LoginActivity.KEY_USER_PARCELABLE, userLogged);
                 startActivity(intent);
+                break;
+            case R.id.drawer_feedback:
+                Intent feedbackIntent = new Intent(Intent.ACTION_SENDTO);
+                feedbackIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                feedbackIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"vinicius.almada@acad.ifma.edu.br"});
+                feedbackIntent.putExtra(Intent.EXTRA_SUBJECT, "Sugestões e dúvidas sobre o ECivil App");
+                startActivity(feedbackIntent);
+                break;
+            case R.id.drawer_info:
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle(R.string.sobreApp);
+                alert.setMessage(R.string.message_about_app);
+                alert.setNeutralButton(android.R.string.ok, null);
+                alert.show();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.dl_main_content);
@@ -226,6 +247,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case 5:
                 navigationView.setCheckedItem(R.id.drawer_calendar);
+                break;
+            case 6:
+                navigationView.setCheckedItem(R.id.drawer_links);
+                break;
         }
     }
 
@@ -256,6 +281,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 return new MonographsFragment();
             } else if (position == 5) {
                 return new CalendarFragment();
+            } else if (position == 6) {
+                return new LinksFragment();
             } else {
                 return new Fragment();
             }
@@ -263,8 +290,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 6;
+            return 7;
         }
 
         @Override
@@ -282,6 +308,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     return getString(R.string.monographies);
                 case 5:
                     return getString(R.string.calendar);
+                case 6:
+                    return getString(R.string.links);
                 default:
                     return "ANOTHER FRAGMENT";
             }

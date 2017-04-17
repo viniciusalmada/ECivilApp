@@ -22,8 +22,8 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="ButtonOffline" parent="ThemeOverlay.AppCompat">
-        <item name="colorButtonNormal">@color/colorAccent</item>
+    <style name="ButtonLinks" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">24sp</item>
