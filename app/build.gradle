@@ -7,7 +7,7 @@ android {
         applicationId "br.almadaapps.civilapp"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 18
+        versionCode 19
         versionName "4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -46,7 +46,6 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'org.jsoup:jsoup:1.10.2'
-    compile 'com.vicmikhailau:MaskedEditText:2.0.1'
     compile 'info.hoang8f:android-segmented:1.0.6'
     compile 'com.github.ceryle:RadioRealButton:v2.0.4'
     compile 'com.daimajia.easing:library:2.0@aar'

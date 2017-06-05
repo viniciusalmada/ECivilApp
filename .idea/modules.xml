@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ECivilApp.iml" filepath="$PROJECT_DIR$/ECivilApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file:///mnt/Games/Vinicius/StudioProjects/ECivilApp/ECivilApp.iml" filepath="/mnt/Games/Vinicius/StudioProjects/ECivilApp/ECivilApp.iml" />
+      <module fileurl="file:///mnt/Games/Vinicius/StudioProjects/ECivilApp/app/app.iml" filepath="/mnt/Games/Vinicius/StudioProjects/ECivilApp/app/app.iml" />
     </modules>
   </component>
 </project>

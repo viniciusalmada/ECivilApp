@@ -71,7 +71,7 @@
                         android:textStyle="normal"
                         tools:text="mohammed@alqaeda.com" />
 
-                    <com.vicmikhailau.maskededittext.MaskedEditText
+                    <EditText
                         android:id="@+id/et_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -79,9 +79,8 @@
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
                         android:hint="EC0811001-21"
-                        android:inputType="number"
-                        android:typeface="monospace"
-                        app:mask="EC#######-##" />
+                        android:inputType="textCapCharacters"
+                        android:typeface="monospace" />
 
                     <TextView
                         android:id="@+id/tv_no_code"

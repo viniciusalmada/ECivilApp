@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -64,6 +65,12 @@ public class DataInitialInputActivity extends CommonActivity {
     public void onBackPressed() {
         GeneralMethods.signOutFinish(this, LoginActivity.class);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this, "Bem-vindo ao ECivil App", Toast.LENGTH_SHORT).show();
     }
 
     @Override
