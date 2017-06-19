@@ -47,4 +47,6 @@
     <string name="links">Links e Downloads</string>
     <string name="sobreApp">Sobre o ECivil App</string>
     <string name="message_about_app">Aplicativo desenvolvido com o intuito de facilitar o acesso do corpo acadêmico, do curso de Bacharelado em Engenharia Civil do IFMA – Campus Monte Castelo, às informações essenciais do curso, como: projeto pedagógico, monografias apresentadas, horários, ementas e acesso a links institucionais.</string>
+    <string name="loading">Carregando…</string>
+    <string name="configure">Selecione o Período/Horário Individual:</string>
 </resources>

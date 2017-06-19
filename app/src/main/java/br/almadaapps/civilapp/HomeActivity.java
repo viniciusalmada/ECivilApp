@@ -31,7 +31,6 @@ import br.almadaapps.civilapp.fragments.LinksFragment;
 import br.almadaapps.civilapp.fragments.MonographsFragment;
 import br.almadaapps.civilapp.fragments.NewsFragment;
 import br.almadaapps.civilapp.fragments.ScheduleFragment;
-import br.almadaapps.civilapp.fragments.SimecFragment;
 import br.almadaapps.civilapp.fragments.SyllabusFragment;
 import br.almadaapps.civilapp.utils.GeneralMethods;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     public static final String TAG = "HomeActivity";
     public static final int[] TAB_ICONS =
-            {R.mipmap.ic_simec,
+            {
                     R.drawable.ic_news,
                     R.drawable.ic_clock,
                     R.drawable.ic_description,
@@ -70,7 +69,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nv_home);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.drawer_simec);
+        navigationView.setCheckedItem(R.id.drawer_news);
         navigationView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.drawer_color));
         navigationView.setItemIconTintList(ContextCompat.getColorStateList(this, R.color.drawer_color));
         navigationView.setBackgroundColor(0xFFFFFFFF);
@@ -165,30 +164,26 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }*/
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.drawer_simec:
+            case R.id.drawer_news:
                 mViewPager.setCurrentItem(0, true);
                 break;
-            case R.id.drawer_news:
+            case R.id.drawer_timetable:
                 mViewPager.setCurrentItem(1, true);
                 break;
-            case R.id.drawer_timetable:
+            case R.id.drawer_syllabus:
                 mViewPager.setCurrentItem(2, true);
                 break;
-            case R.id.drawer_syllabus:
+            case R.id.drawer_monograph:
                 mViewPager.setCurrentItem(3, true);
                 break;
-            case R.id.drawer_monograph:
+            case R.id.drawer_calendar:
                 mViewPager.setCurrentItem(4, true);
                 break;
-            case R.id.drawer_calendar:
-                mViewPager.setCurrentItem(5, true);
-                break;
             case R.id.drawer_links:
-                mViewPager.setCurrentItem(6, true);
+                mViewPager.setCurrentItem(5, true);
                 break;
             case R.id.drawer_signout:
                 GeneralMethods.signOutFinish(this, LoginActivity.class);
@@ -231,24 +226,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nv_home);
         switch (position) {
             case 0:
-                navigationView.setCheckedItem(R.id.drawer_simec);
-                break;
-            case 1:
                 navigationView.setCheckedItem(R.id.drawer_news);
                 break;
-            case 2:
+            case 1:
                 navigationView.setCheckedItem(R.id.drawer_timetable);
                 break;
-            case 3:
+            case 2:
                 navigationView.setCheckedItem(R.id.drawer_syllabus);
                 break;
-            case 4:
+            case 3:
                 navigationView.setCheckedItem(R.id.drawer_monograph);
                 break;
-            case 5:
+            case 4:
                 navigationView.setCheckedItem(R.id.drawer_calendar);
                 break;
-            case 6:
+            case 5:
                 navigationView.setCheckedItem(R.id.drawer_links);
                 break;
         }
@@ -261,6 +253,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private final String[] TITLES_FRAGMENT = new String[]{
+                getString(R.string.news),
+                getString(R.string.timetable),
+                getString(R.string.syllabus),
+                getString(R.string.monographies),
+                getString(R.string.calendar),
+                getString(R.string.links)
+        };
+
         private SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -270,18 +271,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if (position == 0) {
-                return new SimecFragment();
-            } else if (position == 1) {
                 return new NewsFragment();
-            } else if (position == 2) {
+            } else if (position == 1) {
                 return new ScheduleFragment();
-            } else if (position == 3) {
+            } else if (position == 2) {
                 return new SyllabusFragment();
-            } else if (position == 4) {
+            } else if (position == 3) {
                 return new MonographsFragment();
-            } else if (position == 5) {
+            } else if (position == 4) {
                 return new CalendarFragment();
-            } else if (position == 6) {
+            } else if (position == 5) {
                 return new LinksFragment();
             } else {
                 return new Fragment();
@@ -290,30 +289,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         public int getCount() {
-            return 7;
+            return TITLES_FRAGMENT.length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.simec);
-                case 1:
-                    return getString(R.string.news);
-                case 2:
-                    return getString(R.string.timetable);
-                case 3:
-                    return getString(R.string.syllabus);
-                case 4:
-                    return getString(R.string.monographies);
-                case 5:
-                    return getString(R.string.calendar);
-                case 6:
-                    return getString(R.string.links);
-                default:
-                    return "ANOTHER FRAGMENT";
-            }
-//            return null;
+            return TITLES_FRAGMENT[position];
         }
     }
 }

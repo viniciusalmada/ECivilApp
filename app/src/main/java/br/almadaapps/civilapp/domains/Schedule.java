@@ -9,6 +9,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.almadaapps.civilapp.fragments.ScheduleFragment.DURATION_TIMETABLE;
+
 /**
  * Created by vinicius-almada on 23/03/17.
  */
@@ -189,6 +191,28 @@ public class Schedule implements Parcelable {
             this.time = time;
             this.code = code;
             this.timeinit = timeinit;
+        }
+
+        public static List<Schedule.TimeLine> getLinesFromTimeTable(List<Schedule> list, int currPeriod, int currDay) {
+            List<Schedule.TimeLine> timeLines = new ArrayList<>();
+            for (Schedule tt : list) {
+                if (tt.getPeriod() == currPeriod) {
+                    List<Integer> days = tt.getDay();
+                    List<Integer> init = tt.getTimeinit();
+                    for (int i = 0; i < days.size(); i++) {
+                        if (days.get(i) == currDay) {
+                            String sub = tt.getName();
+                            String prof = tt.getProf();
+                            String time = Schedule.getStringTimetable(init.get(i), DURATION_TIMETABLE);
+                            String code = tt.getCode();
+                            int period = tt.getPeriod();
+                            int timeinit = init.get(i);
+                            timeLines.add(new Schedule.TimeLine(sub, prof, time, code, period, timeinit));
+                        }
+                    }
+                }
+            }
+            return timeLines;
         }
 
         public String getSubject() {

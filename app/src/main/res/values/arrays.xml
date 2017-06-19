@@ -35,4 +35,12 @@
         <item>Novembro</item>
         <item>Dezembro</item>
     </string-array>
+    <string-array name="periods_hi">
+        <item>1º Período</item>
+        <item>3º Período</item>
+        <item>5º Período</item>
+        <item>7º Período</item>
+        <item>10º Período</item>
+        <item>Horário Individual</item>
+    </string-array>
 </resources>
